@@ -20,7 +20,7 @@ var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
 var globalTz = 0.0;
 
 var primitiveType = null;
-var projectionType = 1;
+var projectionType = 0;
 
 
 function initBuffers(){
@@ -29,7 +29,8 @@ function initBuffers(){
 
 function drawModel( model,
                     modelVertexPositionBuffer,
-                    modelVertexIndexBuffer,
+					modelVertexIndexBuffer,
+					modelVertexColorBuffer,
 					mvMatrix,
 					primitiveType ) {
 	
@@ -37,11 +38,11 @@ function drawModel( model,
     
 	mvMatrix = mult( mvMatrix, translationMatrix( model.tx, model.ty, model.tz ) );
 						 
-	//mvMatrix = mult( mvMatrix, rotationZZMatrix( model.rotAngleZZ ) );
+	mvMatrix = mult( mvMatrix, rotationZZMatrix( model.rz ) );
 	
-	//mvMatrix = mult( mvMatrix, rotationYYMatrix( model.rotAngleYY ) );
+	mvMatrix = mult( mvMatrix, rotationYYMatrix( model.ry ) );
 	
-	//mvMatrix = mult( mvMatrix, rotationXXMatrix( model.rotAngleXX ) );
+	mvMatrix = mult( mvMatrix, rotationXXMatrix( model.rx ) );
 	
 	mvMatrix = mult( mvMatrix, scalingMatrix( model.sx, model.sy, model.sz ) );
 						 
@@ -56,17 +57,19 @@ function drawModel( model,
     gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexPositionBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, modelVertexPositionBuffer.itemSize, gl.FLOAT, false, 0 , 0);
 
-    // TODO add light, color stuff    
+	// TODO add light, color stuff   
+	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexColorBuffer)
+	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, modelVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0); 
     // Drawing 
-    
+	
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
-    gl.drawElements(primitiveType, modelVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems)
 	
 }
 
 function drawScene(){
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
     var pMatrix;
 	
 	var mvMatrix = mat4();
@@ -131,13 +134,14 @@ function drawScene(){
 
     // Models 
 
-    // Map
-    drawModel(map.getMapPieces()[0], mapVertexPositionBuffer[0], mapVertexIndexBuffer[0], mvMatrix, primitiveType);
+	// Map
+	drawModel(map.getMapPieces()[0], mapVertexPositionBuffer[0], mapVertexIndexBuffer[0], mapVertexColorBuffer[0], mvMatrix, primitiveType);
+
 }
 
 function tick() {
 	
-	//requestAnimFrame(tick);
+	requestAnimationFrame(tick);
 	
     drawScene();
     
@@ -161,14 +165,13 @@ function initWebGL( canvas ) {
 		// NEW - Drawing the triangles defining the model
 		
 		primitiveType = gl.TRIANGLES;
-				
-		// Enable FACE CULLING
-		gl.enable( gl.CULL_FACE );
-		gl.cullFace( gl.BACK );
 		
 		// Enable DEPTH-TEST
 		
 		gl.enable( gl.DEPTH_TEST );
+
+		gl.enable(gl.CULL_FACE);
+		gl.cullFace(gl.BACK);
         
 	} catch (e) {
 	}
