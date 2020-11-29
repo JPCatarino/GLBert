@@ -22,7 +22,6 @@ var globalTz = 0.0;
 var primitiveType = null;
 var projectionType = 0;
 
-
 function initBuffers(){
     initMapBuffers();
 }
@@ -65,6 +64,20 @@ function drawModel( model,
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
 	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems)
 	
+}
+
+function gameInfoText(points, lives){
+	var textCanvas = document.querySelector("#text");
+	var ctx = textCanvas.getContext("2d");
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.font = "15px arcade";
+    ctx.fillStyle = '#FFFFFF';
+	ctx.fillText("Player 1", 600, 90);
+	ctx.fillText("Points:" + points, 600, 120);
+	ctx.fillText("Lives:" + lives, 600, 150);
+	ctx.fillText("Change To:", 600, 180);
+    ctx.drawImage(document.getElementById("blockLevel1"),630, 180, 100, 100);
+
 }
 
 function drawScene(){
@@ -138,6 +151,8 @@ function drawScene(){
 	for(var i = 0; i < 28 ; i++){
 		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexIndexBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
+	
+	gameInfoText(10, 3);
 }
 
 function tick() {
