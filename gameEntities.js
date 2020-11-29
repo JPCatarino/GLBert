@@ -3,7 +3,7 @@
 
 class MapPiece{
 
-    constructor(){
+    constructor(tx=0.0, ty=0.0, tz=0.0){
         this.vertices = [
 
             // FRONT FACE
@@ -204,9 +204,9 @@ class MapPiece{
 
         computeVertexNormals(this.vertices, this.normals);
         
-        this.tx = 0.0;
-	    this.ty = 0.0;
-        this.tz = 0.0;
+        this.tx = tx;
+	    this.ty = ty;
+        this.tz = tz;
 
         this.rx = 60;
         this.ry = 30;
