@@ -212,9 +212,9 @@ class MapPiece{
         this.ry = 30;
         this.rz = 40;
         
-        this.sx = 1.00;
-        this.sy = 1.00;
-        this.sz = 1.00;
+        this.sx = 0.3;
+        this.sy = 0.3;
+        this.sz = 0.3;
 
         this.hasBeenTouched = false;
     }
@@ -236,9 +236,62 @@ class Map{
 
     constructor(){
         this.mapPieces = [];
-        for(var i = 0; i < 28; i++){
-            this.mapPieces.push(new MapPiece());
+        var coordx = -0.75;
+        var coordy = -0.75;
+        var magicNumber = 0.211;
+  
+        for(var i = 0; i<7; i++){
+            this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75));
+            coordx = coordx + magicNumber;
         }
+        
+        coordx = -0.75+(magicNumber/2);
+        coordy = coordy + (2.39*0.075);
+        for(var i=0; i<6; i++){
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            coordx = coordx + magicNumber;
+            
+        }
+        coordx = -0.75+magicNumber;
+        coordy = coordy + ((2.39*0.075));
+        for(var i=0; i<5; i++){
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            coordx = coordx + magicNumber;
+            
+        }
+
+        coordx = -0.75+(magicNumber)+magicNumber/2;
+        coordy = coordy + ((2.39*0.075));
+        for(var i=0; i<4; i++){
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            coordx = coordx + magicNumber;
+            
+        }
+
+        coordx = -0.75+(magicNumber)+magicNumber;
+        coordy = coordy + ((2.39*0.075));
+        for(var i=0; i<3; i++){
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            coordx = coordx + magicNumber;
+            
+        }
+
+        coordx = -0.75+(magicNumber)+magicNumber+ magicNumber/2;
+        coordy = coordy + ((2.39*0.075));
+        for(var i=0; i<2; i++){
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            coordx = coordx + magicNumber;
+            
+        }
+
+        coordx = -0.75+(magicNumber)+magicNumber+ magicNumber;
+        coordy = coordy + ((2.39*0.075));
+        this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+              
+        
+        
+
+        
     }
 
     getMapPieces(){
