@@ -135,8 +135,9 @@ function drawScene(){
     // Models 
 
 	// Map
-	drawModel(map.getMapPieces()[0], mapVertexPositionBuffer[0], mapVertexIndexBuffer[0], mapVertexColorBuffer[0], mvMatrix, primitiveType);
-
+	for(var i = 0; i < 28 ; i++){
+		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexIndexBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
+	}
 }
 
 function tick() {
