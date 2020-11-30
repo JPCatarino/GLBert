@@ -1,6 +1,38 @@
 // gameEntities.js 
 // Jorge Catarino, Óscar Pimentel - 2020 
 
+class Qbert{
+
+    constructor(tx=0.0, ty=0.0, tz=0.0){
+        this.vertices = new MapPiece().getVertices();
+        this.normals = [];
+        this.colors = [];
+        midPointRefinement(this.vertices, 2);
+        moveToSphericalSurface(this.vertices);
+        computeVertexNormals(this.vertices, this.normals);
+
+        this.tx = tx;
+	    this.ty = ty;
+        this.tz = tz;
+
+        this.rx = 0;
+        this.ry = 0;
+        this.rz = 0;
+        
+        this.sx = 0.3;
+        this.sy = 0.3;
+        this.sz = 0.3;
+    }
+
+    getVertices(){
+        return this.vertices;
+    }
+
+    getColors(){
+        return this.colors;
+    }
+}
+
 class MapPiece{
 
     constructor(tx=0.0, ty=0.0, tz=0.0){
