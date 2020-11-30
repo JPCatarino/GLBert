@@ -35,3 +35,22 @@ function initMapBuffers(){
         mapVertexColorBuffer.push(mapPieceVertexColorBuffer);
     }
 }
+
+function initQbertBuffers(){
+    var vertices = qbert.getVertices();
+    var colors = qbert.getColors();
+    
+
+    qbertVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    qbertVertexPositionBuffer.itemSize = 3;
+    qbertVertexPositionBuffer.numItems = vertices.length / 3;
+    
+    qbertVertexColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexColorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+    qbertVertexColorBuffer.itemSize = 3;
+    qbertVertexColorBuffer.numItems = colors.length / 3;
+   
+}

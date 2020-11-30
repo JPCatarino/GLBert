@@ -101,7 +101,7 @@ class Qbert{
             243/255, 156/255, 10/255,		 			 
         ];
         
-        midPointRefinement(this.vertices, 2);
+        midPointRefinementWithColor(this.vertices, this.colors, 2);
         moveToSphericalSurface(this.vertices);
         computeVertexNormals(this.vertices, this.normals);
 
@@ -113,9 +113,9 @@ class Qbert{
         this.ry = 0;
         this.rz = 0;
         
-        this.sx = 0.3;
-        this.sy = 0.3;
-        this.sz = 0.3;
+        this.sx = 0.05;
+        this.sy = 0.07;
+        this.sz = 0.07;
     }
 
     getVertices(){

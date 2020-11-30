@@ -7,11 +7,15 @@ var shaderProgram = null;
 
 // Game Entities
 var map = new Map();
+var qbert = new Qbert(-0.1167, 0.4255, -0.65);
 
 // Buffers
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
 var mapVertexColorBuffer = [];
+
+var qbertVertexPositionBuffer = null;
+var qbertVertexColorBuffer = null;
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -23,12 +27,15 @@ var primitiveType = null;
 var projectionType = 0;
 
 function initBuffers(){
-    initMapBuffers();
+	initMapBuffers();
+	initQbertBuffers();
+	console.log(qbert.getVertices());
+	console.log(qbertVertexPositionBuffer.numItems);
+	console.log(qbertVertexColorBuffer.numItems);
 }
 
 function drawModel( model,
                     modelVertexPositionBuffer,
-					modelVertexIndexBuffer,
 					modelVertexColorBuffer,
 					mvMatrix,
 					primitiveType ) {
@@ -61,8 +68,7 @@ function drawModel( model,
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, modelVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0); 
     // Drawing 
 	
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelVertexIndexBuffer);
-	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems)
+	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems);
 	
 }
 
@@ -145,11 +151,14 @@ function drawScene(){
 	gl.uniform4fv( gl.getUniformLocation(shaderProgram, "viewerPosition"),
         flatten(pos_Viewer) );
 
-    // Models 
+	// Models 
+	
+	//Qbert
+	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	// Map
 	for(var i = 0; i < 28 ; i++){
-		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexIndexBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
+		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
 	
 	gameInfoText(10, 3);
