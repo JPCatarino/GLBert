@@ -288,7 +288,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber;
         coordy = coordy + ((2.39*0.075));
         this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
-              
+           
         
         
 
