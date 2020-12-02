@@ -118,6 +118,14 @@ class Qbert{
         this.sz = 0.07;
     }
 
+    moveLeftUp(){}
+
+    moveRightUp(){}
+
+    moveLeftDown(){}
+
+    moveRightDown(){}
+
     getVertices(){
         return this.vertices;
     }
