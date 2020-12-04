@@ -6,6 +6,7 @@ class Qbert{
     constructor(tx=0.0, ty=0.0, tz=0.0){
         this.vertices = new MapPiece().getVertices();
         this.normals = [];
+        this.magicNumber = 0.2111;
         this.colors = [
 
             // FRONT FACE
@@ -116,15 +117,36 @@ class Qbert{
         this.sx = 0.05;
         this.sy = 0.07;
         this.sz = 0.07;
+        
     }
 
-    moveLeftUp(){}
+    moveLeftUp(){
+        if(this.ty + (2.39*0.075) < 0.60475){
+            this.tx -= (this.magicNumber/2);
+            this.ty += (2.39*0.075);
+        }
+        console.log("tx: " + this.tx + " ty: " + this.ty);
+    }
 
-    moveRightUp(){}
+    moveRightUp(){
+        if(this.ty + (2.39*0.075) < 0.60475){
+            this.tx += (this.magicNumber/2);
+            this.ty += (2.39*0.075);
+        }
+        console.log("tx: " + this.tx + " ty: " + this.ty);
+    }
 
-    moveLeftDown(){}
+    moveLeftDown(){
+        this.tx -= (this.magicNumber/2)
+        this.ty -= (2.39*0.075)
+        console.log("tx: " + this.tx + "ty: " + this.ty)
+    }
 
-    moveRightDown(){}
+    moveRightDown(){
+        this.tx += (this.magicNumber/2)
+        this.ty -= (2.39*0.075)
+        console.log("tx: " + this.tx + "ty: " + this.ty)
+    }
 
     getVertices(){
         return this.vertices;

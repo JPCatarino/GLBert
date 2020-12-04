@@ -127,7 +127,7 @@ function drawScene(){
 		
 		// Ensure that the model is "inside" the view volume
 		
-		pMatrix = perspective( 45, 1, 0.05, 15 );
+		pMatrix = perspective( 110, 1, 0.05, 15 );
 		
 		// Global transformation !!
 		
@@ -167,6 +167,8 @@ function drawScene(){
 function tick() {
 	
 	requestAnimationFrame(tick);
+
+	handleKeys();
 	
     drawScene();
     
