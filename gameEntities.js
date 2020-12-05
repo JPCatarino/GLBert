@@ -6,7 +6,7 @@ class Qbert{
     constructor(tx=0.0, ty=0.0, tz=0.0){
         this.vertices = new MapPiece().getVertices();
         this.normals = [];
-        this.magicNumber = 0.2111;
+        this.magicNumber = 0.205;
         this.colors = [
 
             // FRONT FACE
@@ -395,7 +395,7 @@ class Map{
         this.mapPieces = [];
         var coordx = -0.75;
         var coordy = -0.75;
-        var magicNumber = 0.2111;
+        var magicNumber = 0.205;
   
         for(var i = 0; i<7; i++){
             this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75));
