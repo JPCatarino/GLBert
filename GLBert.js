@@ -21,10 +21,15 @@ var qbertVertexColorBuffer = null;
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
 
 // Global Transformation Variables 
+var globalTx = 0.0;
+var globalYz = 0.0;
 var globalTz = 0.0;
+var globalAngleXX = 0;
+var globalAngleYY = 0;
+var globalAngleZZ = 0;
 
 var primitiveType = null;
-var projectionType = 0;
+var projectionType = 1;
 
 function initBuffers(){
 	initMapBuffers();
@@ -127,11 +132,15 @@ function drawScene(){
 		
 		// Ensure that the model is "inside" the view volume
 		
-		pMatrix = perspective( 110, 1, 0.05, 15 );
+		pMatrix = perspective( 45, 1, 0.05, 15 );
 		
 		// Global transformation !!
-		
-		globalTz = -2.5;
+		globalAngleXX = -21;
+		globalAngleYY = 0;
+		globalAngleZZ = 0;
+		globalTx = 0;
+		globalTy = 0.5;
+		globalTz = -2.0;
 
 		// NEW --- The viewer is on (0,0,0)
 		
@@ -149,7 +158,13 @@ function drawScene(){
 	// NEW --- Passing the viewer position to the vertex shader
 	
 	gl.uniform4fv( gl.getUniformLocation(shaderProgram, "viewerPosition"),
-        flatten(pos_Viewer) );
+		flatten(pos_Viewer) );
+
+
+	mvMatrix = mult(mvMatrix ,translationMatrix(globalTx, globalTy, globalTz));	
+	mvMatrix = mult(mvMatrix ,rotationXXMatrix(globalAngleXX));
+	mvMatrix = mult(mvMatrix ,rotationYYMatrix(globalAngleYY));
+	mvMatrix = mult(mvMatrix ,rotationZZMatrix(globalAngleZZ));
 
 	// Models 
 	
