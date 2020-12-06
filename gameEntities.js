@@ -125,8 +125,7 @@ class Qbert{
 
         this.direction = vec3(0,0,0);
         this.row = 1;
-        this.collumn = 1;
-        
+        this.collumn = 1;      
         
     }
 
@@ -247,6 +246,14 @@ class Qbert{
         return this.direction;
     }
 
+    getRow(){
+        return this.row;
+    }
+
+    getCollumn(){
+        return this.collumn;
+    }
+
     setMoving(movement){
         this.isMoving = movement; 
     }
@@ -262,6 +269,7 @@ class Qbert{
     setTz(tz){
         this.tz = tz;
     }
+
 
 
 }
@@ -498,18 +506,28 @@ class MapPiece{
     getColors(){
         return this.colors;
     }
+
+    getHasBeenTouched(){
+        return this.hasBeenTouched;
+    }
+
+    setHasBeenTouched(){
+        this.hasBeenTouched = true;
+    }
 }
 
 class Map{
 
     constructor(){
         this.mapPieces = [];
+        this.rowCol = [[],[],[],[],[],[],[]];
         var coordx = -0.75;
         var coordy = -0.75;
         var magicNumber = 0.205;
   
         for(var i = 0; i<7; i++){
             this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75, 7, i+1));
+            this.rowCol[6].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
         }
         
@@ -517,6 +535,7 @@ class Map{
         coordy = coordy + (2.39*0.075);
         for(var i=0; i<6; i++){
             this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 6, i+1));
+            this.rowCol[5].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
         }
@@ -524,6 +543,7 @@ class Map{
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<5; i++){
             this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 5, i+1));
+            this.rowCol[4].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
         }
@@ -532,6 +552,7 @@ class Map{
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<4; i++){
             this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 4, i+1));
+            this.rowCol[3].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
         }
@@ -540,6 +561,7 @@ class Map{
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<3; i++){
             this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 3, i+1));
+            this.rowCol[2].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
         }
@@ -548,6 +570,7 @@ class Map{
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<2; i++){
             this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 2, i+1));
+            this.rowCol[1].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
         }
@@ -555,14 +578,20 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber;
         coordy = coordy + ((2.39*0.075));
         this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 1, 1));
-           
-        
-        
-
-        
+        this.rowCol[0].push([1,this.mapPieces[this.mapPieces.length-1]]);
     }
 
     getMapPieces(){
         return this.mapPieces;
+    }
+
+    getPiece(row, collumn){
+        var currentRow = this.rowCol[row-1];
+        for(var i=0; i<currentRow.length; i++){
+            if(collumn == currentRow[i][0]){
+                return currentRow[i][1]
+            }
+        }
+
     }
 }

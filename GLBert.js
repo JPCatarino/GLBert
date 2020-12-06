@@ -269,7 +269,8 @@ function animate(){
 		if(qbert.getMoving()){
 			if((currentQBertX.toFixed(2) == finalQBertX.toFixed(2)) && (currentQBertY.toFixed(2) == finalQBertY.toFixed(2))){
 				qbert.setMoving(false); 
-				console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEK")
+				var stompedPiece = map.getPiece(qbert.getRow(), qbert.getCollumn());
+				stompedPiece.setHasBeenTouched();			
 			}
 			
 			currentQBertX += direction[0] * speedx * (elapsed)/30; 
