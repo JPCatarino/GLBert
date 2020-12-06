@@ -7,6 +7,7 @@ class Qbert{
         this.vertices = new MapPiece().getVertices();
         this.normals = [];
         this.magicNumber = 0.205;
+        this.isMoving = false;
         this.colors = [
 
             // FRONT FACE
@@ -117,35 +118,49 @@ class Qbert{
         this.sx = 0.05;
         this.sy = 0.07;
         this.sz = 0.07;
+
+        this.finalPosx = this.tx;
+        this.finalPosy = this.ty;
+        this.finalPosz = this.tz;
+
+        this.direction = vec3(0,0,0);
         
     }
 
     moveLeftUp(){
         if(this.ty + (2.39*0.075) < 0.60475){
-            this.tx -= (this.magicNumber/2);
-            this.ty += (2.39*0.075);
+            this.finalPosx -= (this.magicNumber/2);
+            this.finalPosy += (2.39*0.075);
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
         }
         console.log("tx: " + this.tx + " ty: " + this.ty);
     }
 
     moveRightUp(){
         if(this.ty + (2.39*0.075) < 0.60475){
-            this.tx += (this.magicNumber/2);
-            this.ty += (2.39*0.075);
+            this.finalPosx += (this.magicNumber/2);
+            this.finalPosy += (2.39*0.075);
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
         }
         console.log("tx: " + this.tx + " ty: " + this.ty);
     }
 
     moveLeftDown(){
-        this.tx -= (this.magicNumber/2)
-        this.ty -= (2.39*0.075)
+        this.finalPosx -= (this.magicNumber/2);
+        this.finalPosy -= (2.39*0.075);
         console.log("tx: " + this.tx + "ty: " + this.ty)
+        this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+        normalize(this.direction);
     }
 
     moveRightDown(){
-        this.tx += (this.magicNumber/2)
-        this.ty -= (2.39*0.075)
+        this.finalPosx += (this.magicNumber/2);
+        this.finalPosy -= (2.39*0.075);
         console.log("tx: " + this.tx + "ty: " + this.ty)
+        this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+        normalize(this.direction);
     }
 
     getVertices(){
@@ -155,6 +170,56 @@ class Qbert{
     getColors(){
         return this.colors;
     }
+
+    getMoving(){
+        return this.isMoving;
+    }
+
+    getTx(){
+        return this.tx;
+    }
+
+    getTy(){
+        return this.ty;
+    }
+
+    getTz(){
+        return this.tz;
+    }
+
+    getfinalPosX(){
+        return this.finalPosx;
+    }
+
+    getfinalPosY(){
+        return this.finalPosy;
+    }
+
+    getfinalPosZ(){
+        return this.finalPosz;
+    }
+
+    getDirection(){
+        return this.direction;
+    }
+
+    setMoving(movement){
+        this.isMoving = movement; 
+    }
+
+    setTx(tx){
+        this.tx = tx;
+    }
+
+    setTy(ty){
+        this.ty = ty;
+    }
+
+    setTz(tz){
+        this.tz = tz;
+    }
+
+
 }
 
 class MapPiece{

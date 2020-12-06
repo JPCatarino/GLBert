@@ -34,29 +34,41 @@ function handleKeys() {
     // Left key
     if (currentlyPressedKeys[37]) {
         if(!blockedKeys[37]) {
-            block(37);
-            qbert.moveLeftUp();
+            if(!qbert.getMoving()){
+                block(37);
+                qbert.moveLeftUp();
+                qbert.setMoving(true);
+            }
         }
     }
     // Up key
     if (currentlyPressedKeys[38]) {
         if(!blockedKeys[38]) {
-            block(38);
-            qbert.moveRightUp();
+            if(!qbert.getMoving()){
+                block(38);
+                qbert.moveRightUp();
+                qbert.setMoving(true);
+            }    
         }
     }
     // Right key
     if (currentlyPressedKeys[39]) {
         if(!blockedKeys[39]) {
-            block(39);
-            qbert.moveRightDown();
+            if(!qbert.getMoving()){
+                block(39);
+                qbert.moveRightDown();
+                qbert.setMoving(true);
+            }    
         }
     }
     // Down key
     if (currentlyPressedKeys[40]) {
         if(!blockedKeys[40]) {
-            block(40);
-            qbert.moveLeftDown();
+            if(!qbert.getMoving()){
+                block(40);
+                qbert.moveLeftDown();
+                qbert.setMoving(true);
+            }    
         }
     }
 }
