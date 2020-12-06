@@ -276,7 +276,7 @@ class Qbert{
 
 class MapPiece{
 
-    constructor(tx=0.0, ty=0.0, tz=0.0, row=0, collumn=0){
+    constructor(tx=0.0, ty=0.0, tz=0.0, row=0, collumn=0, pieceIndex = 0){
         this.vertices = [
 
             // FRONT FACE
@@ -587,6 +587,7 @@ class MapPiece{
         this.hasBeenTouched = false;
         this.row = row;
         this.collumn = collumn;
+        this.pieceIndex = pieceIndex;
     }
 
     getVertices(){
@@ -621,7 +622,7 @@ class Map{
         var magicNumber = 0.205;
   
         for(var i = 0; i<7; i++){
-            this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75, 7, i+1));
+            this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75, 7, i+1, i));
             this.rowCol[6].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
         }
@@ -629,7 +630,7 @@ class Map{
         coordx = -0.75+(magicNumber/2);
         coordy = coordy + (2.39*0.075);
         for(var i=0; i<6; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 6, i+1));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 6, i+1, 7+i));
             this.rowCol[5].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
@@ -637,7 +638,7 @@ class Map{
         coordx = -0.75+magicNumber;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<5; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 5, i+1));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 5, i+1, 13+i));
             this.rowCol[4].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
@@ -646,7 +647,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber/2;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<4; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 4, i+1));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 4, i+1, 18+i));
             this.rowCol[3].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
@@ -655,7 +656,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<3; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 3, i+1));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 3, i+1, 22+i));
             this.rowCol[2].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
@@ -664,7 +665,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber/2;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<2; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 2, i+1));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 2, i+1, 25+i));
             this.rowCol[1].push([i+1,this.mapPieces[this.mapPieces.length-1]]);
             coordx = coordx + magicNumber;
             
@@ -672,7 +673,7 @@ class Map{
 
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber;
         coordy = coordy + ((2.39*0.075));
-        this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 1, 1));
+        this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 1, 1, 27));
         this.rowCol[0].push([1,this.mapPieces[this.mapPieces.length-1]]);
     }
 
