@@ -6,6 +6,8 @@ class Qbert{
     constructor(tx=0.0, ty=0.0, tz=0.0){
         this.vertices = new MapPiece().getVertices();
         this.normals = [];
+        this.lives = 3;
+        this.points = 0;
         this.magicNumber = 0.205;
         this.isMoving = false;
         this.colors = [
@@ -607,8 +609,11 @@ class MapPiece{
     }
 
     setHasBeenTouched(){
-        this.hasBeenTouched = true;
-        this.colors = this.colorsTouched;
+        if(!this.hasBeenTouched){
+            this.hasBeenTouched = true;
+            this.colors = this.colorsTouched;
+            qbert.points+=25;
+        }
     }
 }
 

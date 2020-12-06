@@ -177,7 +177,7 @@ function drawScene(){
 		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
 	
-	gameInfoText(10, 3);
+	gameInfoText(qbert.points, qbert.lives);
 }
 
 function tick() {
@@ -270,7 +270,8 @@ function animate(){
 			if((currentQBertX.toFixed(2) == finalQBertX.toFixed(2)) && (currentQBertY.toFixed(2) == finalQBertY.toFixed(2))){
 				qbert.setMoving(false); 
 				var stompedPiece = map.getPiece(qbert.getRow(), qbert.getCollumn());
-				stompedPiece.setHasBeenTouched();			
+				stompedPiece.setHasBeenTouched();
+				changeMapPieceColorBuffer(stompedPiece);			
 			}
 			
 			currentQBertX += direction[0] * speedx * (elapsed)/30; 

@@ -36,6 +36,18 @@ function initMapBuffers(){
     }
 }
 
+function changeMapPieceColorBuffer(piece){
+    var colors = piece.getColors();
+
+    mapPieceVertexColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, mapPieceVertexColorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+    mapPieceVertexColorBuffer.itemSize = 3;
+    mapPieceVertexColorBuffer.numItems = colors.length / 3;
+
+    mapVertexColorBuffer[piece.pieceIndex] = mapPieceVertexColorBuffer;
+}
+
 function initQbertBuffers(){
     var vertices = qbert.getVertices();
     var colors = qbert.getColors();
