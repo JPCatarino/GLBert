@@ -37,7 +37,7 @@ function handleKeys() {
             if(!qbert.getMoving()){
                 block(37);
                 qbert.moveLeftUp();
-                qbert.setMoving(true);
+                
             }
         }
     }
@@ -47,7 +47,7 @@ function handleKeys() {
             if(!qbert.getMoving()){
                 block(38);
                 qbert.moveRightUp();
-                qbert.setMoving(true);
+                
             }    
         }
     }
@@ -57,7 +57,7 @@ function handleKeys() {
             if(!qbert.getMoving()){
                 block(39);
                 qbert.moveRightDown();
-                qbert.setMoving(true);
+                
             }    
         }
     }
@@ -67,7 +67,7 @@ function handleKeys() {
             if(!qbert.getMoving()){
                 block(40);
                 qbert.moveLeftDown();
-                qbert.setMoving(true);
+                
             }    
         }
     }

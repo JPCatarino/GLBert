@@ -124,43 +124,87 @@ class Qbert{
         this.finalPosz = this.tz;
 
         this.direction = vec3(0,0,0);
+        this.row = 1;
+        this.collumn = 1;
+        
         
     }
 
     moveLeftUp(){
-        if(this.ty + (2.39*0.075) < 0.60475){
+        var rowTemp = this.row - 1;
+        var collumnTemp = this.collumn - 1;
+        
+        if(collumnTemp !=0) {
             this.finalPosx -= (this.magicNumber/2);
             this.finalPosy += (2.39*0.075);
             this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
-            normalize(this.direction);
+            normalize(this.direction);                
+            this.row = rowTemp;
+            this.collumn = collumnTemp;
+            this.isMoving = true;
+        }
+        else{
+            this.isMoving = false;
         }
         console.log("tx: " + this.tx + " ty: " + this.ty);
+        
     }
 
     moveRightUp(){
-        if(this.ty + (2.39*0.075) < 0.60475){
+        var rowTemp = this.row - 1;
+        var collumnTemp = this.collumn;
+        
+        if(rowTemp>=collumnTemp){
             this.finalPosx += (this.magicNumber/2);
             this.finalPosy += (2.39*0.075);
             this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
             normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp; 
+            this.isMoving = true;
+        }else{
+            this.isMoving = false;
         }
+        
         console.log("tx: " + this.tx + " ty: " + this.ty);
     }
 
     moveLeftDown(){
-        this.finalPosx -= (this.magicNumber/2);
-        this.finalPosy -= (2.39*0.075);
+        var rowTemp = this.row + 1;
+        var collumnTemp = this.collumn;
+        
+        if(rowTemp<=7){
+            this.finalPosx -= (this.magicNumber/2);
+            this.finalPosy -= (2.39*0.075);       
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp; 
+            this.isMoving = true;
+
+        }else{
+            this.isMoving = false;
+        }
+        
+
         console.log("tx: " + this.tx + "ty: " + this.ty)
-        this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
-        normalize(this.direction);
     }
 
     moveRightDown(){
-        this.finalPosx += (this.magicNumber/2);
-        this.finalPosy -= (2.39*0.075);
-        console.log("tx: " + this.tx + "ty: " + this.ty)
-        this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
-        normalize(this.direction);
+        var rowTemp = this.row + 1;
+        var collumnTemp = this.collumn + 1;
+        if (rowTemp <= 7){
+            this.finalPosx += (this.magicNumber/2);
+            this.finalPosy -= (2.39*0.075);
+            console.log("tx: " + this.tx + "ty: " + this.ty)
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp;
+            this.isMoving = true;
+        }
+        else
+            this.isMoving = false;
     }
 
     getVertices(){
@@ -224,7 +268,7 @@ class Qbert{
 
 class MapPiece{
 
-    constructor(tx=0.0, ty=0.0, tz=0.0){
+    constructor(tx=0.0, ty=0.0, tz=0.0, row=0, collumn=0){
         this.vertices = [
 
             // FRONT FACE
@@ -439,6 +483,8 @@ class MapPiece{
         this.sz = 0.3;
 
         this.hasBeenTouched = false;
+        this.row = row;
+        this.collumn = collumn;
     }
 
     getVertices(){
@@ -463,21 +509,21 @@ class Map{
         var magicNumber = 0.205;
   
         for(var i = 0; i<7; i++){
-            this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , -0.75, -0.75, 7, i+1));
             coordx = coordx + magicNumber;
         }
         
         coordx = -0.75+(magicNumber/2);
         coordy = coordy + (2.39*0.075);
         for(var i=0; i<6; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 6, i+1));
             coordx = coordx + magicNumber;
             
         }
         coordx = -0.75+magicNumber;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<5; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 5, i+1));
             coordx = coordx + magicNumber;
             
         }
@@ -485,7 +531,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber/2;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<4; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 4, i+1));
             coordx = coordx + magicNumber;
             
         }
@@ -493,7 +539,7 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<3; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 3, i+1));
             coordx = coordx + magicNumber;
             
         }
@@ -501,14 +547,14 @@ class Map{
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber/2;
         coordy = coordy + ((2.39*0.075));
         for(var i=0; i<2; i++){
-            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+            this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 2, i+1));
             coordx = coordx + magicNumber;
             
         }
 
         coordx = -0.75+(magicNumber)+magicNumber+ magicNumber;
         coordy = coordy + ((2.39*0.075));
-        this.mapPieces.push(new MapPiece(coordx , coordy, -0.75));
+        this.mapPieces.push(new MapPiece(coordx , coordy, -0.75, 1, 1));
            
         
         
