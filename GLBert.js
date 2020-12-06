@@ -7,7 +7,8 @@ var shaderProgram = null;
 
 // Game Entities
 var map = new Map();
-var qbert = new Qbert(-0.1167, 0.4255, -0.65);
+var rootPiece = map.getMapPieces()[27];
+var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
 
 // Buffers
 var mapVertexPositionBuffer = [];
