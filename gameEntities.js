@@ -147,6 +147,7 @@ class Qbert{
         }
         else{
             this.isMoving = false;
+            qbert.isDead();            
         }
         console.log("tx: " + this.tx + " ty: " + this.ty);
         
@@ -166,6 +167,7 @@ class Qbert{
             this.isMoving = true;
         }else{
             this.isMoving = false;
+            qbert.isDead();    
         }
         
         console.log("tx: " + this.tx + " ty: " + this.ty);
@@ -186,6 +188,7 @@ class Qbert{
 
         }else{
             this.isMoving = false;
+            qbert.isDead();    
         }
         
 
@@ -205,8 +208,10 @@ class Qbert{
             this.collumn = collumnTemp;
             this.isMoving = true;
         }
-        else
+        else{
             this.isMoving = false;
+            qbert.isDead();   
+        } 
     }
 
     getVertices(){
@@ -299,9 +304,6 @@ class Qbert{
             this.isDead();
         }
     } 
-
-
-
 }
 
 class MapPiece{
@@ -769,24 +771,24 @@ class Enemy{
         this.colors = [
 
             //ONE FACE
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,  
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
 
             //ANOTHER FACE
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 1.0, 0.0, 
+            136/255, 78/255, 160/255,
+            136/255, 78/255, 160/255,
+            136/255, 78/255, 160/255, 
 
             //ANOTHER FACE
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0,
-            0.0, 0.0, 1.0, 
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
 
             //ANOTHER FACE
-            1.0, 1.0, 0.0,
-            1.0, 1.0, 0.0,
-            1.0, 1.0, 0.0, 
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
+            195/255, 155/255, 211/255,
 
         ];
 
