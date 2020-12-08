@@ -9,6 +9,7 @@ var shaderProgram = null;
 var map = new Map();
 var rootPiece = map.getMapPieces()[27];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
+var enemy = new Enemy(rootPiece.tx+0.003, 0.4255, -0.65);
 
 // Buffers
 var mapVertexPositionBuffer = [];
@@ -17,6 +18,9 @@ var mapVertexColorBuffer = [];
 
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
+
+var enemyVertexPositionBuffer = null;
+var enemyVertexColorBuffer = null;
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -35,6 +39,7 @@ var projectionType = 1;
 function initBuffers(){
 	initMapBuffers();
 	initQbertBuffers();
+	initEnemyBuffers();
 	console.log(qbert.getVertices());
 	console.log(qbertVertexPositionBuffer.numItems);
 	console.log(qbertVertexColorBuffer.numItems);
@@ -171,6 +176,9 @@ function drawScene(){
 	
 	//Qbert
 	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
+
+	//Enemy
+	drawModel(enemy, enemyVertexPositionBuffer, enemyVertexColorBuffer, mvMatrix, primitiveType);
 
 	// Map
 	for(var i = 0; i < 28 ; i++){

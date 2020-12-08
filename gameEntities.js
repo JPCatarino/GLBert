@@ -787,6 +787,18 @@ class Enemy{
         return this.tz;
     }
 
+    getVertices(){
+        return this.vertices;
+    }
+
+    getColors(){
+        return this.colors;
+    }
+
+    getMoving(){
+        return this.isMoving;
+    }
+
     setTx(tx){
         this.tx = tx;
     }

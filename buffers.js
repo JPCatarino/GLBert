@@ -66,3 +66,21 @@ function initQbertBuffers(){
     qbertVertexColorBuffer.numItems = colors.length / 3;
    
 }
+
+function initEnemyBuffers(){
+    var vertices = enemy.getVertices();
+    var colors = enemy.getColors();
+    
+    enemyVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    enemyVertexPositionBuffer.itemSize = 3;
+    enemyVertexPositionBuffer.numItems = vertices.length / 3;
+    
+    enemyVertexColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexColorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+    enemyVertexColorBuffer.itemSize = 3;
+    enemyVertexColorBuffer.numItems = colors.length / 3;
+   
+}
