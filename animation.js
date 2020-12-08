@@ -68,10 +68,12 @@ function animateEnemy(elapsed){
 			dir = Math.round(Math.random());
 			
 			if(dir == 0){
-				enemy.moveLeftDown();				
+				enemy.moveLeftDown();	
+				enemyJumpSound.play();			
 			} 
 			else{
-				enemy.moveRightDown();				
+				enemy.moveRightDown();
+				enemyJumpSound.play();				
 			}
 		}
 	}

@@ -1,3 +1,8 @@
+qbertJumpSound = new sound("sounds/jump.mp3");
+enemyJumpSound = new sound("sounds/jump-2.mp3");
+winSound = new sound("sounds/tune-2.mp3");
+collideSound = new sound("sounds/swear.mp3");
+
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;

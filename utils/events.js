@@ -3,7 +3,6 @@
 
 var currentlyPressedKeys = {};
 var blockedKeys = {};
-mySound = new sound("sounds/jump-2.mp3");
 
 function setEventListeners( canvas ){
 
@@ -37,7 +36,7 @@ function handleKeys() {
         if(!blockedKeys[37]) {
             if(!qbert.getMoving()){
                 block(37);
-                mySound.play();
+                qbertJumpSound.play();
                 qbert.moveLeftUp();
                 
             }
@@ -48,7 +47,7 @@ function handleKeys() {
         if(!blockedKeys[38]) {
             if(!qbert.getMoving()){
                 block(38);
-                mySound.play();
+                qbertJumpSound.play();
                 qbert.moveRightUp();
                 
             }    
@@ -59,7 +58,7 @@ function handleKeys() {
         if(!blockedKeys[39]) {
             if(!qbert.getMoving()){
                 block(39);
-                mySound.play();
+                qbertJumpSound.play();
                 qbert.moveRightDown();
                 
             }    
@@ -70,7 +69,7 @@ function handleKeys() {
         if(!blockedKeys[40]) {
             if(!qbert.getMoving()){
                 block(40);
-                mySound.play();
+                qbertJumpSound.play();
                 qbert.moveLeftDown();
                 
             }    

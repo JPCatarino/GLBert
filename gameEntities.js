@@ -302,6 +302,7 @@ class Qbert{
     hasCollidedWithEnemy(){
         if(this.row == enemy.getRow() && this.collumn == enemy.getCollumn()){
             this.isDead();
+            collideSound.play();
         }
     } 
 }
@@ -733,6 +734,7 @@ class Map{
     checkIfLevelComplete(){
         if(this.stompedPieceCounter == this.mapPieces.length){
             this.levelComplete = true;
+            winSound.play();
             console.log("YAY!");
         }
     }
