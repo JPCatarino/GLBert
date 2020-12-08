@@ -43,8 +43,8 @@ function animateEnemy(elapsed){
 	var finalEnemyZ = enemy.getfinalPosZ();
 	var direction = enemy.getDirection();	
 
-	var enemySpeedx = 0.006;
-	var enemySpeedy = 0.006;
+	var enemySpeedx = 0.009;
+	var enemySpeedy = 0.009;
 	
 	
     if(enemy.getMoving()){
@@ -60,7 +60,7 @@ function animateEnemy(elapsed){
 				
 	}
 	else{
-		if(timeToMove != 120){
+		if(timeToMove != 55){
 			timeToMove++;
 		}
 		else{
