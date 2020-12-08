@@ -10,6 +10,7 @@ class Qbert{
         this.points = 0;
         this.magicNumber = 0.205;
         this.isMoving = false;
+        this.dead = false;
         this.colors = [
 
             // FRONT FACE
@@ -270,6 +271,13 @@ class Qbert{
 
     setTz(tz){
         this.tz = tz;
+    }
+
+    isDead(){
+        qbert.lives -=1;
+        if(qbert.lives == 0){
+            this.dead = true;
+        }
     }
 
 
@@ -764,13 +772,14 @@ class Enemy{
         this.sz = 0.07;
 
         this.isMoving = false;
-        this.row = 2;
+        this.row = 1;
         this.collumn = 1; 
         this.direction = vec3(0,0,0); 
         
         this.finalPosx = this.tx;
         this.finalPosy = this.ty;
-        this.finalPosz = this.tz;          
+        this.finalPosz = this.tz; 
+        this.magicNumber = 0.205;         
 
             
     }
@@ -799,6 +808,34 @@ class Enemy{
         return this.isMoving;
     }
 
+    getRow(){
+        return this.row;
+    }
+
+    getCollumn(){
+        return this.collumn;
+    }
+
+    getfinalPosX(){
+        return this.finalPosx;
+    }
+
+    getfinalPosY(){
+        return this.finalPosy;
+    }
+
+    getfinalPosZ(){
+        return this.finalPosz;
+    }
+
+    getDirection(){
+        return this.direction;
+    }
+
+    setMoving(movement){
+        this.isMoving = movement; 
+    }
+
     setTx(tx){
         this.tx = tx;
     }
@@ -809,53 +846,6 @@ class Enemy{
 
     setTz(tz){
         this.tz = tz;
-    }
-
-    getRow(){
-        return this.row;
-    }
-
-    getCollumn(){
-        return this.collumn;
-    }
-
-    moveLeftUp(){
-        var rowTemp = this.row - 1;
-        var collumnTemp = this.collumn - 1;
-        
-        if(collumnTemp !=0) {
-            this.finalPosx -= (this.magicNumber/2);
-            this.finalPosy += (2.39*0.075);
-            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
-            normalize(this.direction);                
-            this.row = rowTemp;
-            this.collumn = collumnTemp;
-            this.isMoving = true;
-        }
-        else{
-            this.isMoving = false;
-        }
-        console.log("tx: " + this.tx + " ty: " + this.ty);
-        
-    }
-
-    moveRightUp(){
-        var rowTemp = this.row - 1;
-        var collumnTemp = this.collumn;
-        
-        if(rowTemp>=collumnTemp){
-            this.finalPosx += (this.magicNumber/2);
-            this.finalPosy += (2.39*0.075);
-            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
-            normalize(this.direction);
-            this.row = rowTemp;
-            this.collumn = collumnTemp; 
-            this.isMoving = true;
-        }else{
-            this.isMoving = false;
-        }
-        
-        console.log("tx: " + this.tx + " ty: " + this.ty);
     }
 
     moveLeftDown(){

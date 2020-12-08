@@ -1,4 +1,5 @@
 var lastTime = 0;
+var timeToMove = 0;
 
 function animateQBert(elapsed){
     var currentQBertX = qbert.getTx();
@@ -28,7 +29,52 @@ function animateQBert(elapsed){
 
         qbert.setTx(currentQBertX);
         qbert.setTy(currentQBertY);
+    }
+}
+
+function animateEnemy(elapsed){
+    var currentEnemyX = enemy.getTx();
+	var finalEnemyX = enemy.getfinalPosX();
+
+	var currentEnemyY = enemy.getTy();
+	var finalEnemyY = enemy.getfinalPosY();
+
+	var currentEnemyZ = enemy.getTz();
+	var finalEnemyZ = enemy.getfinalPosZ();
+	var direction = enemy.getDirection();	
+
+	var enemySpeedx = 0.006;
+	var enemySpeedy = 0.006;
+	
+	
+    if(enemy.getMoving()){
+        if((currentEnemyX.toFixed(2) == finalEnemyX.toFixed(2)) && (currentEnemyY.toFixed(2) == finalEnemyY.toFixed(2))){
+            enemy.setMoving(false);             			
         }
+        
+        currentEnemyX += direction[0] * enemySpeedx * (elapsed)/30; 
+		currentEnemyY += direction[1] * enemySpeedy * (elapsed)/30;
+		
+		enemy.setTx(currentEnemyX);
+        enemy.setTy(currentEnemyY);
+				
+	}
+	else{
+		if(timeToMove != 120){
+			timeToMove++;
+		}
+		else{
+			timeToMove = 0;	
+			dir = Math.round(Math.random());
+			
+			if(dir == 0){
+				enemy.moveLeftDown();				
+			} 
+			else{
+				enemy.moveRightDown();				
+			}
+		}
+	}
 }
 
 function animate(){
@@ -40,6 +86,7 @@ function animate(){
 		
 		//todo truncar valores na comparaçao
 		animateQBert(elapsed);
+		animateEnemy(elapsed);
 			
 		}
 	lastTime = timeNow;
