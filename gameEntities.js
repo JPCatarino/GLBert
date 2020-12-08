@@ -696,3 +696,192 @@ class Map{
 
     }
 }
+
+class Enemy{
+    constructor(tx=0.0, ty=0.0, tz=0.0){
+        
+        this.vertices = [
+
+            //ONE FACE
+            -1.0, 0.0, -0.707,
+            0.0, 1.0, 0.707,
+            1.0, 0.0, -0.707, 
+
+            //ANOTHER FACE
+            1.0, 0.0, -0.707,
+            0.0, 1.0, 0.707,
+            0.0, -1.0, 0.707,  
+
+            //ANOTHER FACE
+            -1.0, 0.0, -0.707,
+            0.0, -1.0, 0.707,
+            0.0, 1.0, 0.707,
+
+            //ANOTHER FACE
+            -1.0, 0.0, -0.707,
+            1.0, 0.0, -0.707,
+            0.0, -1.0, 0.707, 
+        ];
+
+        this.colors = [
+
+            //ONE FACE
+            1.0, 0.0, 0.0,
+            1.0, 0.0, 0.0,
+            1.0, 0.0, 0.0,  
+
+            //ANOTHER FACE
+            0.0, 1.0, 0.0,
+            0.0, 1.0, 0.0,
+            0.0, 1.0, 0.0, 
+
+            //ANOTHER FACE
+            0.0, 0.0, 1.0,
+            0.0, 0.0, 1.0,
+            0.0, 0.0, 1.0, 
+
+            //ANOTHER FACE
+            1.0, 1.0, 0.0,
+            1.0, 1.0, 0.0,
+            1.0, 1.0, 0.0, 
+
+        ];
+
+        this.normals = [];
+
+        computeVertexNormals(this.vertices, this.normals);
+
+        this.tx = tx;
+	    this.ty = ty;
+        this.tz = tz;
+
+        this.rx = 0;
+        this.ry = 0;
+        this.rz = 0;
+        
+        this.sx = 0.05;
+        this.sy = 0.07;
+        this.sz = 0.07;
+
+        this.isMoving = false;
+        this.row = 2;
+        this.collumn = 1; 
+        this.direction = vec3(0,0,0); 
+        
+        this.finalPosx = this.tx;
+        this.finalPosy = this.ty;
+        this.finalPosz = this.tz;          
+
+            
+    }
+
+    getTx(){
+        return this.tx;
+    }
+
+    getTy(){
+        return this.ty;
+    }
+
+    getTz(){
+        return this.tz;
+    }
+
+    setTx(tx){
+        this.tx = tx;
+    }
+
+    setTy(ty){
+        this.ty = ty;
+    }
+
+    setTz(tz){
+        this.tz = tz;
+    }
+
+    getRow(){
+        return this.row;
+    }
+
+    getCollumn(){
+        return this.collumn;
+    }
+
+    moveLeftUp(){
+        var rowTemp = this.row - 1;
+        var collumnTemp = this.collumn - 1;
+        
+        if(collumnTemp !=0) {
+            this.finalPosx -= (this.magicNumber/2);
+            this.finalPosy += (2.39*0.075);
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);                
+            this.row = rowTemp;
+            this.collumn = collumnTemp;
+            this.isMoving = true;
+        }
+        else{
+            this.isMoving = false;
+        }
+        console.log("tx: " + this.tx + " ty: " + this.ty);
+        
+    }
+
+    moveRightUp(){
+        var rowTemp = this.row - 1;
+        var collumnTemp = this.collumn;
+        
+        if(rowTemp>=collumnTemp){
+            this.finalPosx += (this.magicNumber/2);
+            this.finalPosy += (2.39*0.075);
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp; 
+            this.isMoving = true;
+        }else{
+            this.isMoving = false;
+        }
+        
+        console.log("tx: " + this.tx + " ty: " + this.ty);
+    }
+
+    moveLeftDown(){
+        var rowTemp = this.row + 1;
+        var collumnTemp = this.collumn;
+        
+        if(rowTemp<=7){
+            this.finalPosx -= (this.magicNumber/2);
+            this.finalPosy -= (2.39*0.075);       
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp; 
+            this.isMoving = true;
+
+        }else{
+            this.isMoving = false;
+        }
+        
+
+        console.log("tx: " + this.tx + "ty: " + this.ty)
+    }
+
+    moveRightDown(){
+        var rowTemp = this.row + 1;
+        var collumnTemp = this.collumn + 1;
+        if (rowTemp <= 7){
+            this.finalPosx += (this.magicNumber/2);
+            this.finalPosy -= (2.39*0.075);
+            console.log("tx: " + this.tx + "ty: " + this.ty)
+            this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+            normalize(this.direction);
+            this.row = rowTemp;
+            this.collumn = collumnTemp;
+            this.isMoving = true;
+        }
+        else
+            this.isMoving = false;
+    }
+
+}
