@@ -612,6 +612,8 @@ class MapPiece{
         if(!this.hasBeenTouched){
             this.hasBeenTouched = true;
             this.colors = this.colorsTouched;
+            map.incrementStompPieceCounter();
+            map.checkIfLevelComplete();
             qbert.points+=25;
         }
     }
@@ -622,6 +624,8 @@ class Map{
     constructor(){
         this.mapPieces = [];
         this.rowCol = [[],[],[],[],[],[],[]];
+        this.stompedPieceCounter = 0;
+        this.levelComplete = 0;
         var coordx = -0.75;
         var coordy = -0.75;
         var magicNumber = 0.205;
@@ -694,6 +698,17 @@ class Map{
             }
         }
 
+    }
+
+    checkIfLevelComplete(){
+        if(this.stompedPieceCounter == this.mapPieces.length){
+            this.levelComplete = true;
+            console.log("YAY!");
+        }
+    }
+
+    incrementStompPieceCounter(){
+        this.stompedPieceCounter+=1;
     }
 }
 
