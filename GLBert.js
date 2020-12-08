@@ -199,6 +199,8 @@ function tick() {
     //countFrames();
 	
 	animate();
+	qbert.hasCollidedWithEnemy();
+        
 }
 
 function outputInfos(){

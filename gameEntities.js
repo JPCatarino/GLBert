@@ -273,12 +273,32 @@ class Qbert{
         this.tz = tz;
     }
 
-    isDead(){
-        qbert.lives -=1;
-        if(qbert.lives == 0){
-            this.dead = true;
-        }
+    goToStartingPos(){
+        this.row = 1;
+        this.collumn = 1;
+        this.tx = rootPiece.tx+0.003;
+        this.ty = 0.4255;
+        this.finalPosx = this.tx;
+        this.finalPosy = this.ty;
+        this.finalPosz = this.tz;
+        this.direction = vec3(0,0,0);
+        this.setMoving(false);
     }
+
+    isDead(){
+        qbert.lives -= 1;
+        this.goToStartingPos();
+        if(qbert.lives == -1){
+            this.dead = true;            
+        }
+        console.log(this.dead);
+    }
+
+    hasCollidedWithEnemy(){
+        if(this.row == enemy.getRow() && this.collumn == enemy.getCollumn()){
+            this.isDead();
+        }
+    } 
 
 
 
