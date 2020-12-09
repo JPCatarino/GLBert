@@ -17,12 +17,15 @@ var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1)
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
 var mapVertexColorBuffer = [];
+var mapVertexNormalBuffer = [];
 
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
+var qbertVertexNormalBuffer = null;
 
 var enemiesVertexPositionBuffer = [];
 var enemiesVertexColorBuffer = [];
+var enemiesVertexNormalBuffer = [];
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -48,7 +51,8 @@ function initBuffers(){
 }
 
 function drawModel( model,
-                    modelVertexPositionBuffer,
+					modelVertexPositionBuffer,
+					modelVertexNormalBuffer,
 					modelVertexColorBuffer,
 					mvMatrix,
 					primitiveType ) {
@@ -76,7 +80,11 @@ function drawModel( model,
     gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexPositionBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, modelVertexPositionBuffer.itemSize, gl.FLOAT, false, 0 , 0);
 
-	// TODO add light, color stuff   
+	// TODO add light, color stuff 
+	
+	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexNormalBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, modelVertexNormalBuffer.itemSize, gl.FLOAT, false, 0 , 0);
+	
 	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexColorBuffer)
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, modelVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0); 
     // Drawing 
@@ -174,19 +182,23 @@ function drawScene(){
 	mvMatrix = mult(mvMatrix ,rotationYYMatrix(globalAngleYY));
 	mvMatrix = mult(mvMatrix ,rotationZZMatrix(globalAngleZZ));
 
+
+	// set the light direction.
+	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([0.5, 0.7, 1]));
+
 	// Models 
 	
 	//Qbert
-	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
+	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexNormalBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	//Enemy
 	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
-		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
+		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexNormalBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
 	}
 
 	// Map
 	for(var i = 0; i < 28 ; i++){
-		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
+		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexNormalBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
 	
 	gameInfoText(qbert.points, qbert.lives);

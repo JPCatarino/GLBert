@@ -34,13 +34,17 @@ Passing the Model-View Matrix and the Projection Matrix.
 	
     attribute vec3 aVertexPosition;
 
-    attribute vec3 aVertexColor;
+	attribute vec3 aVertexColor;
+	
+	attribute vec3 aVertexNormal;
     
     uniform mat4 uMVMatrix;
 
     uniform mat4 uPMatrix;
 
-    varying vec4 vertexColor;
+	varying vec4 vertexColor;
+	
+	varying vec3 vertexNormal;
     
     void main(void) {
 		
@@ -56,7 +60,9 @@ Passing the Model-View Matrix and the Projection Matrix.
         
         // Converting the RGB color value to RGBA
         
-        vertexColor = vec4(aVertexColor, 1.0);
+		vertexColor = vec4(aVertexColor, 1.0);
+		
+		vertexNormal = aVertexNormal;
     }
 </script>
 
@@ -65,12 +71,23 @@ Passing the Model-View Matrix and the Projection Matrix.
 	precision mediump float;
 	
 	varying vec4 vertexColor;
+
+	varying vec3 vertexNormal;
+
+	uniform vec3 u_reverseLightDirection;
 	
 	void main(void) {
 		
 		// Using the passed vertex color
+
+		vec3 normal = normalize(vertexNormal);
+
+		float light = dot(normal, u_reverseLightDirection);
 		
 		gl_FragColor = vertexColor;
+
+		gl_FragColor.rgb*=light;
+
 	}
 
 </script>

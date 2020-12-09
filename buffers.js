@@ -8,6 +8,7 @@ function initMapBuffers(){
         var current_cube = map_pieces[cubeIndex];
         var vertices = current_cube.getVertices();
         var indices = current_cube.getIndices();
+        var normals = current_cube.getNormals();
         var colors = current_cube.getColors();
         
 
@@ -23,6 +24,11 @@ function initMapBuffers(){
         mapPieceVertexColorBuffer.itemSize = 3;
         mapPieceVertexColorBuffer.numItems = colors.length / 3;
 
+        mapPieceVertexNormalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, mapPieceVertexNormalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+        mapPieceVertexNormalBuffer.itemSize = 3;
+        mapPieceVertexNormalBuffer.numItems = normals.length / 3;
 
         mapPieceIndexBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mapPieceIndexBuffer);
@@ -32,6 +38,7 @@ function initMapBuffers(){
 
         mapVertexPositionBuffer.push(mapPieceVertexPositionBuffer);
         mapVertexIndexBuffer.push(mapPieceIndexBuffer);
+        mapVertexNormalBuffer.push(mapPieceVertexNormalBuffer);
         mapVertexColorBuffer.push(mapPieceVertexColorBuffer);
     }
 }
@@ -50,6 +57,7 @@ function changeMapPieceColorBuffer(piece){
 
 function initQbertBuffers(){
     var vertices = qbert.getVertices();
+    var normals = qbert.getNormals();
     var colors = qbert.getColors();
     
 
@@ -58,6 +66,12 @@ function initQbertBuffers(){
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     qbertVertexPositionBuffer.itemSize = 3;
     qbertVertexPositionBuffer.numItems = vertices.length / 3;
+
+    qbertVertexNormalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexNormalBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+    qbertVertexNormalBuffer.itemSize = 3;
+    qbertVertexNormalBuffer.numItems = normals.length / 3;
     
     qbertVertexColorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexColorBuffer);
@@ -71,6 +85,7 @@ function initEnemyBuffers(){
 
     for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
         var vertices = enemies[enemyIndex].getVertices();
+        var normals = enemies[enemyIndex].getNormals();
         var colors = enemies[enemyIndex].getColors();
 
         enemyVertexPositionBuffer = gl.createBuffer();
@@ -78,6 +93,12 @@ function initEnemyBuffers(){
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         enemyVertexPositionBuffer.itemSize = 3;
         enemyVertexPositionBuffer.numItems = vertices.length / 3;
+
+        enemyVertexNormalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexNormalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+        enemyVertexNormalBuffer.itemSize = 3;
+        enemyVertexNormalBuffer.numItems = normals.length / 3;
         
         enemyVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexColorBuffer);
@@ -86,10 +107,8 @@ function initEnemyBuffers(){
         enemyVertexColorBuffer.numItems = colors.length / 3;
 
         enemiesVertexPositionBuffer.push(enemyVertexPositionBuffer);
+        enemiesVertexNormalBuffer.push(enemyVertexNormalBuffer);
         enemiesVertexColorBuffer.push(enemyVertexColorBuffer);
-
-        console.log(enemies[enemyIndex]);
-
     }    
    
 }

@@ -242,6 +242,10 @@ class Qbert{
         return this.finalPosx;
     }
 
+    getNormals(){
+        return this.normals;
+    }
+
     getfinalPosY(){
         return this.finalPosy;
     }
@@ -639,6 +643,10 @@ class MapPiece{
         return this.hasBeenTouched;
     }
 
+    getNormals(){
+        return this.normals;
+    }
+
     setHasBeenTouched(){
         if(!this.hasBeenTouched){
             this.hasBeenTouched = true;
@@ -850,6 +858,10 @@ class Enemy{
 
     getRow(){
         return this.row;
+    }
+
+    getNormals(){
+        return this.normals;
     }
 
     getCollumn(){
