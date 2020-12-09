@@ -745,7 +745,7 @@ class Map{
 }
 
 class Enemy{
-    constructor(tx=0.0, ty=0.0, tz=0.0){
+    constructor(tx=0.0, ty=0.0, tz=0.0, startingRow, startingCollumn){
         
         this.vertices = [
 
@@ -811,8 +811,8 @@ class Enemy{
         this.sz = 0.07;
 
         this.isMoving = false;
-        this.row = 1;
-        this.collumn = 1; 
+        this.row = startingRow;
+        this.collumn = startingCollumn; 
         this.direction = vec3(0,0,0); 
         
         this.finalPosx = this.tx;

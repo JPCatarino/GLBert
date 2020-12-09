@@ -8,8 +8,10 @@ var shaderProgram = null;
 // Game Entities
 var map = new Map();
 var rootPiece = map.getMapPieces()[27];
+var spawnPiece1 = map.getMapPieces()[25];
+var spawnPiece2 = map.getMapPieces()[24];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
-var enemies = [new Enemy(rootPiece.tx+0.003, 0.4255, -0.65), new Enemy(rootPiece.tx+0.003, 0.4255, -0.65)];
+var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
 
 // Buffers
 var mapVertexPositionBuffer = [];
