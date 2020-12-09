@@ -915,6 +915,7 @@ class Enemy{
 
         }else{
             this.isMoving = false;
+            this.goToStartingPos();
         }
         
 
@@ -934,12 +935,28 @@ class Enemy{
             this.collumn = collumnTemp;
             this.isMoving = true;
         }
-        else
+        else{
             this.isMoving = false;
+            this.goToStartingPos();
+        }
     }
 
     setSpawn(cond){
         this.spawn = cond;
+    }
+
+    goToStartingPos(){
+        var randomSpawnPieceIndex = Math.round(Math.random());
+        console.log(randomSpawnPieceIndex);
+        var randomSpawnPiece = spawnPieces[randomSpawnPieceIndex];
+        this.row = randomSpawnPiece.row;
+        this.collumn = randomSpawnPiece.collumn;
+        this.tx = randomSpawnPiece.tx+0.003;
+        this.ty = randomSpawnPiece.ty+0.05;
+        this.finalPosx = this.tx;
+        this.finalPosy = this.ty;
+        this.finalPosz = this.tz;
+        this.direction = vec3(0,0,0);        
     }
 
 }
