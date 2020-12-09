@@ -8,8 +8,13 @@ var shaderProgram = null;
 // Game Entities
 var map = new Map();
 var rootPiece = map.getMapPieces()[27];
+var spawnPiece1 = map.getMapPieces()[25];
+var spawnPiece2 = map.getMapPieces()[24];
+var spawnPiece3 = map.getMapPieces()[26];
+var spawnPiece4 = map.getMapPieces()[22];
+var spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
-var enemy = new Enemy(rootPiece.tx+0.003, 0.4255, -0.65);
+var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
 
 // Buffers
 var mapVertexPositionBuffer = [];
@@ -20,8 +25,8 @@ var mapVertexNormalBuffer = [];
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
 
-var enemyVertexPositionBuffer = null;
-var enemyVertexColorBuffer = null;
+var enemiesVertexPositionBuffer = [];
+var enemiesVertexColorBuffer = [];
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -244,7 +249,9 @@ function drawScene(){
 	//drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	//Enemy
-	//drawModel(enemy, enemyVertexPositionBuffer, enemyVertexColorBuffer, mvMatrix, primitiveType);
+	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
+		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
+	}
 
 	// Map
 	for(var i = 0; i < 28 ; i++){
@@ -265,7 +272,9 @@ function tick() {
     //countFrames();
 	
 	animate();
-	qbert.hasCollidedWithEnemy();
+	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
+		qbert.hasCollidedWithEnemy(enemies[enemyIndex]);
+	}
         
 }
 

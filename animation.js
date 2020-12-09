@@ -1,5 +1,5 @@
 var lastTime = 0;
-var timeToMove = 0;
+var timeToMove = [0,0];
 
 function animateQBert(elapsed){
     var currentQBertX = qbert.getTx();
@@ -32,7 +32,7 @@ function animateQBert(elapsed){
     }
 }
 
-function animateEnemy(elapsed){
+function animateEnemy(elapsed, enemy, enemyIndex){
     var currentEnemyX = enemy.getTx();
 	var finalEnemyX = enemy.getfinalPosX();
 
@@ -43,8 +43,8 @@ function animateEnemy(elapsed){
 	var finalEnemyZ = enemy.getfinalPosZ();
 	var direction = enemy.getDirection();	
 
-	var enemySpeedx = 0.009;
-	var enemySpeedy = 0.009;
+	var enemySpeedx = 0.006;
+	var enemySpeedy = 0.006;
 	
 	
     if(enemy.getMoving()){
@@ -60,11 +60,11 @@ function animateEnemy(elapsed){
 				
 	}
 	else{
-		if(timeToMove != 55){
-			timeToMove++;
+		if(timeToMove[enemyIndex] != 55){
+			timeToMove[enemyIndex]++;
 		}
 		else{
-			timeToMove = 0;	
+			timeToMove[enemyIndex] = 0;	
 			dir = Math.round(Math.random());
 			
 			if(dir == 0){
@@ -88,8 +88,10 @@ function animate(){
 		
 		//todo truncar valores na comparaçao
 		animateQBert(elapsed);
-		animateEnemy(elapsed);
+		for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
+			animateEnemy(elapsed, enemies[enemyIndex], enemyIndex);
+		}	
 			
-		}
+	}
 	lastTime = timeNow;
 }
