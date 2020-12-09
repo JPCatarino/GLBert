@@ -31,11 +31,11 @@ var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
 
 // Directional --- Homogeneous coordinate is ZERO
 
-var pos_Light_Source = [ 0.0, 0.0, 1.0, 0.0 ];
+var pos_Light_Source = [ 1.0, 1.0, 1.0, 0.0 ];
 
 // White light
 
-var int_Light_Source = [ 1.0, 1.0, 1.0 ];
+var int_Light_Source = [ 0.0, 0.0, 0.0 ];
 
 // Low ambient illumination
 
@@ -45,15 +45,15 @@ var ambient_Illumination = [ 0.3, 0.3, 0.3 ];
 
 // Ambient coef.
 
-var kAmbi = [ 0.0, 0.2, 0.2 ];
+var kAmbi = [ 0.5, 0.5, 0.5 ];
 
 // Diffuse coef.
 
-var kDiff = [ 255/255, 127/255, 80/255 ];
+var kDiff = [ 0.5, 0.5, 0.5 ];
 
 // Specular coef.
 
-var kSpec = [ 0.0, 0.7, 0.7 ];
+var kSpec = [ 0.5, 0.5, 0.5 ];
 
 // Phong coef.
 
@@ -80,7 +80,8 @@ function initBuffers(){
 }
 
 function drawModel( model,
-                    modelVertexPositionBuffer,
+					modelVertexPositionBuffer,
+					modelVertexNormalBuffer,
 					modelVertexColorBuffer,
 					mvMatrix,
 					primitiveType ) {
@@ -108,7 +109,11 @@ function drawModel( model,
     gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexPositionBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, modelVertexPositionBuffer.itemSize, gl.FLOAT, false, 0 , 0);
 
-	// TODO add light, color stuff   
+	// TODO add light, color stuff 
+	
+	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexNormalBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, modelVertexNormalBuffer.itemSize, gl.FLOAT, false, 0 , 0);
+	
 	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexColorBuffer)
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, modelVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0); 
     // Drawing 
@@ -116,6 +121,7 @@ function drawModel( model,
 	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems);
 	
 }
+
 
 function gameInfoText(points, lives){
 	var textCanvas = document.querySelector("#text");
@@ -235,14 +241,14 @@ function drawScene(){
 	// Models 
 	
 	//Qbert
-	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
+	//drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	//Enemy
-	drawModel(enemy, enemyVertexPositionBuffer, enemyVertexColorBuffer, mvMatrix, primitiveType);
+	//drawModel(enemy, enemyVertexPositionBuffer, enemyVertexColorBuffer, mvMatrix, primitiveType);
 
 	// Map
 	for(var i = 0; i < 28 ; i++){
-		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
+		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexNormalBuffer[i] ,mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
 	
 	gameInfoText(qbert.points, qbert.lives);
