@@ -299,7 +299,7 @@ class Qbert{
         console.log(this.dead);
     }
 
-    hasCollidedWithEnemy(){
+    hasCollidedWithEnemy(enemy){
         if(this.row == enemy.getRow() && this.collumn == enemy.getCollumn()){
             this.isDead();
             collideSound.play();
@@ -818,7 +818,8 @@ class Enemy{
         this.finalPosx = this.tx;
         this.finalPosy = this.ty;
         this.finalPosz = this.tz; 
-        this.magicNumber = 0.205;         
+        this.magicNumber = 0.205;  
+        this.spawn = false;       
 
             
     }
@@ -923,6 +924,10 @@ class Enemy{
         }
         else
             this.isMoving = false;
+    }
+
+    setSpawn(cond){
+        this.spawn = cond;
     }
 
 }
