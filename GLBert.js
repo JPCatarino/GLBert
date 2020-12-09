@@ -15,6 +15,7 @@ var enemy = new Enemy(rootPiece.tx+0.003, 0.4255, -0.65);
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
 var mapVertexColorBuffer = [];
+var mapVertexNormalBuffer = [];
 
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
@@ -24,6 +25,39 @@ var enemyVertexColorBuffer = null;
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
+
+
+// NEW --- Point Light Source Features
+
+// Directional --- Homogeneous coordinate is ZERO
+
+var pos_Light_Source = [ 0.0, 0.0, 1.0, 0.0 ];
+
+// White light
+
+var int_Light_Source = [ 1.0, 1.0, 1.0 ];
+
+// Low ambient illumination
+
+var ambient_Illumination = [ 0.3, 0.3, 0.3 ];
+
+// NEW --- Model Material Features
+
+// Ambient coef.
+
+var kAmbi = [ 0.0, 0.2, 0.2 ];
+
+// Diffuse coef.
+
+var kDiff = [ 255/255, 127/255, 80/255 ];
+
+// Specular coef.
+
+var kSpec = [ 0.0, 0.7, 0.7 ];
+
+// Phong coef.
+
+var nPhong = 100;
 
 // Global Transformation Variables 
 var globalTx = 0.0;
@@ -171,6 +205,32 @@ function drawScene(){
 	mvMatrix = mult(mvMatrix ,rotationXXMatrix(globalAngleXX));
 	mvMatrix = mult(mvMatrix ,rotationYYMatrix(globalAngleYY));
 	mvMatrix = mult(mvMatrix ,rotationZZMatrix(globalAngleZZ));
+
+	var ambientProduct = mult( kAmbi, ambient_Illumination );
+    
+    var diffuseProduct = mult( kDiff, int_Light_Source );
+    
+	var specularProduct = mult( kSpec, int_Light_Source );
+	
+
+	// Partial illumonation terms and shininess Phong coefficient
+	
+	gl.uniform3fv( gl.getUniformLocation(shaderProgram, "ambientProduct"), 
+		flatten(ambientProduct) );
+    
+    gl.uniform3fv( gl.getUniformLocation(shaderProgram, "diffuseProduct"),
+        flatten(diffuseProduct) );
+    
+    gl.uniform3fv( gl.getUniformLocation(shaderProgram, "specularProduct"),
+        flatten(specularProduct) );
+
+	gl.uniform1f( gl.getUniformLocation(shaderProgram, "shininess"), 
+		nPhong );
+
+	//Position of the Light Source
+	
+	gl.uniform4fv( gl.getUniformLocation(shaderProgram, "lightPosition"),
+        flatten(pos_Light_Source) );
 
 	// Models 
 	

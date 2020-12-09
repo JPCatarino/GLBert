@@ -635,6 +635,10 @@ class MapPiece{
         return this.colors;
     }
 
+    getNormals(){
+        return this.normals;
+    }
+
     getHasBeenTouched(){
         return this.hasBeenTouched;
     }
