@@ -262,6 +262,10 @@ class Qbert{
         return this.collumn;
     }
 
+    getNormals(){
+        return this.normals;
+    }
+
     setMoving(movement){
         this.isMoving = movement; 
     }
@@ -874,6 +878,10 @@ class Enemy{
 
     getDirection(){
         return this.direction;
+    }
+
+    getNormals(){
+        return this.normals;
     }
 
     setMoving(movement){

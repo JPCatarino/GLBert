@@ -58,6 +58,7 @@ function changeMapPieceColorBuffer(piece){
 
 function initQbertBuffers(){
     var vertices = qbert.getVertices();
+    var normals = qbert.getNormals();
     var colors = qbert.getColors();
     
 
@@ -66,6 +67,12 @@ function initQbertBuffers(){
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     qbertVertexPositionBuffer.itemSize = 3;
     qbertVertexPositionBuffer.numItems = vertices.length / 3;
+
+    qbertVertexNormalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexNormalBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+    qbertVertexNormalBuffer.itemSize = 3;
+    qbertVertexNormalBuffer.numItems = normals.length / 3;
     
     qbertVertexColorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, qbertVertexColorBuffer);
@@ -79,6 +86,7 @@ function initEnemyBuffers(){
 
     for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
         var vertices = enemies[enemyIndex].getVertices();
+        var normals = enemies[enemyIndex].getNormals();
         var colors = enemies[enemyIndex].getColors();
 
         enemyVertexPositionBuffer = gl.createBuffer();
@@ -86,6 +94,12 @@ function initEnemyBuffers(){
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         enemyVertexPositionBuffer.itemSize = 3;
         enemyVertexPositionBuffer.numItems = vertices.length / 3;
+
+        enemyVertexNormalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexNormalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+        enemyVertexNormalBuffer.itemSize = 3;
+        enemyVertexNormalBuffer.numItems = normals.length / 3;
         
         enemyVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, enemyVertexColorBuffer);
@@ -94,10 +108,8 @@ function initEnemyBuffers(){
         enemyVertexColorBuffer.numItems = colors.length / 3;
 
         enemiesVertexPositionBuffer.push(enemyVertexPositionBuffer);
+        enemiesVertexNormalBuffer.push(enemyVertexNormalBuffer);
         enemiesVertexColorBuffer.push(enemyVertexColorBuffer);
-
-        console.log(enemies[enemyIndex]);
-
     }    
    
 }

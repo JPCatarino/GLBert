@@ -24,9 +24,11 @@ var mapVertexNormalBuffer = [];
 
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
+var qbertVertexNormalBuffer = null;
 
 var enemiesVertexPositionBuffer = [];
 var enemiesVertexColorBuffer = [];
+var enemiesVertexNormalBuffer = [];
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -36,7 +38,7 @@ var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
 
 // Directional --- Homogeneous coordinate is ZERO
 
-var pos_Light_Source = [ 1.0, 1.0, 1.0, 0.0 ];
+var pos_Light_Source = [ 0.5, 0.8, 0.4, 0.0 ];
 
 // White light
 
@@ -246,11 +248,11 @@ function drawScene(){
 	// Models 
 	
 	//Qbert
-	//drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
+	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexNormalBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	//Enemy
 	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
-		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
+		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexNormalBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
 	}
 
 	// Map
