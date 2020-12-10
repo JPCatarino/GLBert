@@ -185,9 +185,17 @@ function drawScene(){
 	mvMatrix = mult(mvMatrix ,rotationYYMatrix(globalAngleYY));
 	mvMatrix = mult(mvMatrix ,rotationZZMatrix(globalAngleZZ));
 
+	mvMatrixInv =  inverse(mvMatrix);
+	
+	mvMatrixInvTrans = transpose(mvMatrixInv);
+
+	gl.uniformMatrix4fv(
+		gl.getUniformLocation(shaderProgram, "uMVMatrixInverseTranspose"), false,
+		mvMatrixInvTrans);
+
 
 	// set the light direction.
-	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([-0.4, 1.0, 1.4]));
+	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([-0.5, 0.34, 1.2]));
 
 	// Models 
 	

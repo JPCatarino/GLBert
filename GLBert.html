@@ -38,7 +38,9 @@ Passing the Model-View Matrix and the Projection Matrix.
 	
 	attribute vec3 aVertexNormal;
     
-    uniform mat4 uMVMatrix;
+	uniform mat4 uMVMatrix;
+	
+	uniform mat4 uMVMatrixInverseTranspose;
 
     uniform mat4 uPMatrix;
 
@@ -62,11 +64,14 @@ Passing the Model-View Matrix and the Projection Matrix.
         
 		vertexColor = vec4(aVertexColor, 1.0);
 		
-		vertexNormal = aVertexNormal;
+		vertexNormal = mat3(uMVMatrix) * aVertexNormal;
     }
 </script>
 
 <script id="shader-fs" type="x-shader/x-fragment">
+
+	// Direction Lightning based on https://webglfundamentals.org/webgl/lessons/webgl-3d-lighting-directional.html
+
 
 	precision mediump float;
 	
