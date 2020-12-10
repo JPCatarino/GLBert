@@ -187,7 +187,7 @@ function drawScene(){
 
 
 	// set the light direction.
-	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([-0.4, 0.8, 1.6]));
+	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([-0.4, 1.0, 1.4]));
 
 	// Models 
 	
