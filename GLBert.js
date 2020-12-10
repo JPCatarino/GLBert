@@ -15,7 +15,7 @@ var spawnPiece4 = map.getMapPieces()[22];
 var spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
 var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
-
+//var disks = [new Disk(), new Disk] //to continue
 // Buffers
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
@@ -26,6 +26,9 @@ var qbertVertexColorBuffer = null;
 
 var enemiesVertexPositionBuffer = [];
 var enemiesVertexColorBuffer = [];
+
+var disksVertexPositionBuffer = [];
+var disksVertexColorBuffer = [];
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
