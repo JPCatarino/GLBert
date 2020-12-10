@@ -12,10 +12,12 @@ var spawnPiece1 = map.getMapPieces()[25];
 var spawnPiece2 = map.getMapPieces()[24];
 var spawnPiece3 = map.getMapPieces()[26];
 var spawnPiece4 = map.getMapPieces()[22];
+var diskPiece1 = map.getMapPieces()[13]; 
+var diskPiece2 = map.getMapPieces()[17];
 var spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
 var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
-//var disks = [new Disk(), new Disk] //to continue
+var disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
 // Buffers
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
@@ -48,6 +50,7 @@ function initBuffers(){
 	initMapBuffers();
 	initQbertBuffers();
 	initEnemyBuffers();
+	initDiskBuffers()
 	console.log(qbert.getVertices());
 	console.log(qbertVertexPositionBuffer.numItems);
 	console.log(qbertVertexColorBuffer.numItems);
@@ -185,9 +188,14 @@ function drawScene(){
 	//Qbert
 	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
-	//Enemy
+	//Enemies
 	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
 		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
+	}
+
+	//Disks
+	for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
+		drawModel(disks[diskIndex], disksVertexPositionBuffer[diskIndex], disksVertexColorBuffer[diskIndex], mvMatrix, primitiveType);
 	}
 
 	// Map

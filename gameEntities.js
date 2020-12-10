@@ -950,7 +950,7 @@ class Enemy{
 }
 
 class Disk{
-    constructor(tx=0.0, ty=0.0, tz=0.0){
+    constructor(tx=0.0, ty=0.0, tz=0.0, startingRow, startingCollumn){
         this.vertices = [
             //TOP FACE
             0.0, 1.0, 0.0,
@@ -1177,12 +1177,12 @@ class Disk{
 	    this.ty = ty;
         this.tz = tz;
 
-        this.rx = 0;
+        this.rx = 50;
         this.ry = 0;
         this.rz = 0;
         
         this.sx = 0.05;
-        this.sy = 0.07;
+        this.sy = 0.007;
         this.sz = 0.07;
 
         this.isMoving = false;
@@ -1215,6 +1215,38 @@ class Disk{
 
     getColors(){
         return this.colors;
+    }
+
+    getfinalPosX(){
+        return this.finalPosx;
+    }
+
+    getfinalPosY(){
+        return this.finalPosy;
+    }
+
+    getfinalPosZ(){
+        return this.finalPosz;
+    }
+
+    getDirection(){
+        return this.direction;
+    }
+
+    setMoving(movement){
+        this.isMoving = movement; 
+    }
+
+    setTx(tx){
+        this.tx = tx;
+    }
+
+    setTy(ty){
+        this.ty = ty;
+    }
+
+    setTz(tz){
+        this.tz = tz;
     }
 
 }

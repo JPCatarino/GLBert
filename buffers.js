@@ -93,3 +93,28 @@ function initEnemyBuffers(){
     }    
    
 }
+
+function initDiskBuffers(){
+    for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
+        var vertices = disks[diskIndex].getVertices();
+        var colors = disks[diskIndex].getColors();
+
+        diskVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, diskVertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        diskVertexPositionBuffer.itemSize = 3;
+        diskVertexPositionBuffer.numItems = vertices.length / 3;
+        
+        diskVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, diskVertexColorBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+        diskVertexColorBuffer.itemSize = 3;
+        diskVertexColorBuffer.numItems = colors.length / 3;
+
+        disksVertexPositionBuffer.push(diskVertexPositionBuffer);
+        disksVertexColorBuffer.push(diskVertexColorBuffer);
+
+        console.log(disks[diskIndex]);
+
+    }
+}
