@@ -116,6 +116,7 @@ function initEnemyBuffers(){
 function initDiskBuffers(){
     for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
         var vertices = disks[diskIndex].getVertices();
+        var normals = disks[diskIndex].getNormals();
         var colors = disks[diskIndex].getColors();
 
         diskVertexPositionBuffer = gl.createBuffer();
@@ -123,6 +124,12 @@ function initDiskBuffers(){
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         diskVertexPositionBuffer.itemSize = 3;
         diskVertexPositionBuffer.numItems = vertices.length / 3;
+
+        diskVertexNormalBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, diskVertexNormalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+        diskVertexNormalBuffer.itemSize = 3;
+        diskVertexNormalBuffer.numItems = normals.length / 3;
         
         diskVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, diskVertexColorBuffer);
@@ -131,6 +138,7 @@ function initDiskBuffers(){
         diskVertexColorBuffer.numItems = colors.length / 3;
 
         disksVertexPositionBuffer.push(diskVertexPositionBuffer);
+        disksVertexNormalBuffer.push(diskVertexNormalBuffer);
         disksVertexColorBuffer.push(diskVertexColorBuffer);
 
         console.log(disks[diskIndex]);

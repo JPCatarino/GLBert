@@ -33,6 +33,7 @@ var enemiesVertexColorBuffer = [];
 var enemiesVertexNormalBuffer = [];
 
 var disksVertexPositionBuffer = [];
+var disksVertexNormalBuffer = [];
 var disksVertexColorBuffer = [];
 
 // Global Variables 
@@ -215,7 +216,7 @@ function drawScene(){
 
 	//Disks
 	for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
-		drawModel(disks[diskIndex], disksVertexPositionBuffer[diskIndex], disksVertexColorBuffer[diskIndex], mvMatrix, primitiveType);
+		drawModel(disks[diskIndex], disksVertexPositionBuffer[diskIndex], disksVertexNormalBuffer[diskIndex], disksVertexColorBuffer[diskIndex], mvMatrix, primitiveType);
 	}
 
 	// Map

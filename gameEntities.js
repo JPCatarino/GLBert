@@ -1225,6 +1225,10 @@ class Disk{
         return this.vertices;
     }
 
+    getNormals(){
+        return this.normals;
+    }
+
     getColors(){
         return this.colors;
     }
