@@ -148,18 +148,21 @@ class Qbert{
             this.isMoving = true;
         }
         else{
-            if(disks[0].getActive() && this.row ==5){
+            if(disks[0].getActive() && this.row ==5){                
                 this.finalPosx = diskPiece1.tx -0.13;
                 this.finalPosy = diskPiece1.ty+0.175;
                 this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
                 normalize(this.direction);
                 this.row = rowTempDisk;
                 this.collumn = collumnTempDisk;
-                this.isMoving = true;                               
+                this.isMoving = true;  
+                liftSound.play();                                             
             }
             else{
                 this.isMoving = false;
-                qbert.isDead();  
+                qbert.isDead();
+                fallSound.play(); 
+                console.log("FODA-se")  
             }
                       
         }
@@ -183,6 +186,7 @@ class Qbert{
             this.isMoving = true;
         }else{
             if(disks[1].getActive() && this.row ==5){
+                liftSound.play();
                 this.finalPosx = diskPiece2.tx +0.12;
                 this.finalPosy = diskPiece2.ty+0.1;
                 this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
@@ -194,6 +198,7 @@ class Qbert{
             else{
             this.isMoving = false;
             qbert.isDead();  
+            fallSound.play(); 
             }  
         }
         
@@ -215,7 +220,8 @@ class Qbert{
 
         }else{
             this.isMoving = false;
-            qbert.isDead();    
+            qbert.isDead();   
+            fallSound.play();  
         }
         
 
@@ -237,7 +243,8 @@ class Qbert{
         }
         else{
             this.isMoving = false;
-            qbert.isDead();   
+            qbert.isDead();  
+            fallSound.play(); 
         } 
     }
 

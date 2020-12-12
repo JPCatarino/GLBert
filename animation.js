@@ -113,8 +113,6 @@ function animateDisk(elapsed, disk){
 
 		disk.setTx(currentDiskX);
 		disk.setTy(currentDiskY);
-		
-
 	}
 
 }
@@ -126,7 +124,7 @@ function animate(){
 		
 		var elapsed = timeNow - lastTime;
 		
-		//todo truncar valores na comparaçao
+		
 		animateQBert(elapsed);
 		for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
 			animateEnemy(elapsed, enemies[enemyIndex], enemyIndex);
