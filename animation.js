@@ -33,10 +33,12 @@ function animateQBert(elapsed){
 	else{
 		for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
 			if((disks[diskIndex].getRow() == qbert.getRow() && disks[diskIndex].getCollumn() == qbert.getCollumn())){
-				qbert.setMoving(false);
-				qbert.goToStartingPos();
-				disks[diskIndex].tz = 100000;
-				disks[diskIndex].setActive(false);
+				disks[diskIndex].setMoving(true);
+				disks[diskIndex].setDiskDirection(rootPiece.tx+0.003, rootPiece.ty+0.1);	
+				disks[diskIndex].setFinalPos(rootPiece.tx+0.003, rootPiece.ty+0.1);			
+				qbert.setQbertDirection(rootPiece.tx+0.003, rootPiece.ty+0.2);	 
+				qbert.setFinalPos(rootPiece.tx+0.003, rootPiece.ty+0.2);												
+				qbert.setMoving(true);
 			}
 		} 
 		
@@ -90,6 +92,33 @@ function animateEnemy(elapsed, enemy, enemyIndex){
 	}
 }
 
+function animateDisk(elapsed, disk){
+	var currentDiskX = disk.getTx();
+	var currentDiskY = disk.getTy();
+	var finalPosX = disk.getfinalPosX();
+	var finalPosY = disk.getfinalPosY();
+	var direction = disk.getDirection();
+	var SpeedX = 0.006;
+	var SpeedY = 0.006;
+	
+	if(disk.getMoving()){
+		if((currentDiskX.toFixed(2) == finalPosX.toFixed(2)) && (currentDiskY.toFixed(2) == finalPosY.toFixed(2))){
+			disk.setMoving(false); 			
+			qbert.goToStartingPos();   
+			disk.setActive(false);  
+			disk.setTz(1000000);      			
+        }
+		currentDiskX += direction[0] * SpeedX * (elapsed)/30;
+		currentDiskY += direction[1] * SpeedY * (elapsed)/30;
+
+		disk.setTx(currentDiskX);
+		disk.setTy(currentDiskY);
+		
+
+	}
+
+}
+
 function animate(){
 	var timeNow = new Date().getTime();		
 	
@@ -102,6 +131,10 @@ function animate(){
 		for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
 			animateEnemy(elapsed, enemies[enemyIndex], enemyIndex);
 		}	
+
+		for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
+			animateDisk(elapsed, disks[diskIndex]);
+		}
 			
 	}
 	lastTime = timeNow;

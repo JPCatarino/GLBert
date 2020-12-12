@@ -309,6 +309,11 @@ class Qbert{
         this.tz = tz;
     }
 
+    setFinalPos(posx, posy){
+        this.finalPosx = posx;
+        this.finalPosy = posy;
+    }
+
     goToStartingPos(){
         this.row = 1;
         this.collumn = 1;
@@ -335,7 +340,12 @@ class Qbert{
             this.isDead();
             collideSound.play();
         }
-    } 
+    }
+    
+    setQbertDirection(finalPosx, finalPosy){         
+        this.direction = vec3(finalPosx-this.tx, finalPosy-this.ty, 0);
+        normalize(this.direction);
+    }
 }
 
 class MapPiece{
@@ -1285,6 +1295,10 @@ class Disk{
         return this.collumn;
     }
 
+    getMoving(){
+        return this.isMoving;
+    }
+
     setMoving(movement){
         this.isMoving = movement; 
     }
@@ -1308,4 +1322,13 @@ class Disk{
         this.active = act;
     }
 
+    setDiskDirection(finalPosx, finalPosy){         
+        this.direction = vec3(finalPosx-this.tx, finalPosy-this.ty, 0);
+        normalize(this.direction);
+    }
+
+    setFinalPos(posx, posy){
+        this.finalPosx = posx;
+        this.finalPosy = posy;
+    }
 }
