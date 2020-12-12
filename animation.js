@@ -29,7 +29,18 @@ function animateQBert(elapsed){
 
         qbert.setTx(currentQBertX);
         qbert.setTy(currentQBertY);
-    }
+	}
+	else{
+		for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
+			if((disks[diskIndex].getRow() == qbert.getRow() && disks[diskIndex].getCollumn() == qbert.getCollumn())){
+				qbert.setMoving(false);
+				qbert.goToStartingPos();
+				disks[diskIndex].tz = 100000;
+				disks[diskIndex].setActive(false);
+			}
+		} 
+		
+	}
 }
 
 function animateEnemy(elapsed, enemy, enemyIndex){

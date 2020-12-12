@@ -135,6 +135,8 @@ class Qbert{
     moveLeftUp(){
         var rowTemp = this.row - 1;
         var collumnTemp = this.collumn - 1;
+        var rowTempDisk = this.row;
+        var collumnTempDisk = this.collumn - 1;
         
         if(collumnTemp !=0) {
             this.finalPosx -= (this.magicNumber/2);
@@ -146,8 +148,20 @@ class Qbert{
             this.isMoving = true;
         }
         else{
-            this.isMoving = false;
-            qbert.isDead();            
+            if(disks[0].getActive() && this.row ==5){
+                this.finalPosx = diskPiece1.tx -0.13;
+                this.finalPosy = diskPiece1.ty+0.175;
+                this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+                normalize(this.direction);
+                this.row = rowTempDisk;
+                this.collumn = collumnTempDisk;
+                this.isMoving = true;                               
+            }
+            else{
+                this.isMoving = false;
+                qbert.isDead();  
+            }
+                      
         }
         console.log("tx: " + this.tx + " ty: " + this.ty);
         
@@ -156,6 +170,8 @@ class Qbert{
     moveRightUp(){
         var rowTemp = this.row - 1;
         var collumnTemp = this.collumn;
+        var rowTempDisk = this.row;
+        var collumnTempDisk = this.collumn + 1
         
         if(rowTemp>=collumnTemp){
             this.finalPosx += (this.magicNumber/2);
@@ -166,8 +182,19 @@ class Qbert{
             this.collumn = collumnTemp; 
             this.isMoving = true;
         }else{
+            if(disks[1].getActive() && this.row ==5){
+                this.finalPosx = diskPiece2.tx +0.12;
+                this.finalPosy = diskPiece2.ty+0.1;
+                this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
+                normalize(this.direction);
+                this.row = rowTempDisk;
+                this.collumn = collumnTempDisk;
+                this.isMoving = true;
+            }
+            else{
             this.isMoving = false;
-            qbert.isDead();    
+            qbert.isDead();  
+            }  
         }
         
         console.log("tx: " + this.tx + " ty: " + this.ty);
@@ -624,7 +651,7 @@ class MapPiece{
         this.hasBeenTouched = false;
         this.row = row;
         this.collumn = collumn;
-        this.pieceIndex = pieceIndex;
+        this.pieceIndex = pieceIndex;        
     }
 
     getVertices(){
@@ -749,7 +776,7 @@ class Map{
 
     incrementStompPieceCounter(){
         this.stompedPieceCounter+=1;
-    }
+    }    
 }
 
 class Enemy{
@@ -1206,6 +1233,7 @@ class Disk{
         this.finalPosy = this.ty;
         this.finalPosz = this.tz; 
         this.magicNumber = 0.205; 
+        this.active = true;
         
 
     }
@@ -1249,6 +1277,14 @@ class Disk{
         return this.direction;
     }
 
+    getRow(){
+        return this.row;
+    }
+
+    getCollumn(){
+        return this.collumn;
+    }
+
     setMoving(movement){
         this.isMoving = movement; 
     }
@@ -1263,6 +1299,13 @@ class Disk{
 
     setTz(tz){
         this.tz = tz;
+    }
+
+    getActive(){
+        return this.active;
+    }
+    setActive(act){
+        this.active = act;
     }
 
 }
