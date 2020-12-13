@@ -23,6 +23,57 @@ function setEventListeners( canvas ){
     
     document.onkeyup = handleKeyUp;
 
+    document.getElementById("rotate-left").onclick = function(){		
+		globalAngleXX = -51;
+        globalAngleYY = 33;
+        globalAngleZZ = 43;
+        globalTx = 0;
+        globalTy = 0.5;
+        globalTz = -2.5;	
+		
+    };
+    
+    document.getElementById("rotate-right").onclick = function(){		
+		globalAngleXX = -51;
+        globalAngleYY = -33;
+        globalAngleZZ = -43;
+        globalTx = 0;
+        globalTy = 0.5;
+        globalTz = -2.5;	
+		
+    };
+    
+    document.getElementById("reset").onclick = function(){		
+		globalAngleXX = -21;
+        globalAngleYY = 0;
+        globalAngleZZ = 0;
+        globalTx = 0;
+        globalTy = 0.5;
+        globalTz = -2.0;	
+		
+    };
+    
+    document.getElementById("inverted").onclick = function(){		
+		globalAngleXX = 5;
+		globalAngleYY = 0;
+		globalAngleZZ = 180;
+		globalTx = -0.2;
+		globalTy = -0.2;
+		globalTz = -2.0;	
+		
+    };
+    
+    document.getElementById("top-view").onclick = function(){		
+		globalAngleXX = 20;
+        globalAngleYY = 0;
+        globalAngleZZ = 0;
+        globalTx = 0;
+        globalTy = -0.3;
+        globalTz = -2.0;	
+		
+    };
+    
+
 }
 
 function block(kCode) {
