@@ -415,6 +415,45 @@ class MapPiece{
             16, 17, 18,   16, 18, 19,   // right
             20, 21, 22,   20, 22, 23,   // left
         ];
+
+        var textureCoords = [
+
+            // Front face
+            0.0, 0.0,
+            1.0, 0.0,
+            1.0, 1.0,
+            0.0, 1.0,
+  
+            // Back face
+            1.0, 0.0,
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+  
+            // Top face
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,
+            1.0, 1.0,
+  
+            // Bottom face
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,
+  
+            // Right face
+            1.0, 0.0,
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+  
+            // Left face
+            0.0, 0.0,
+            1.0, 0.0,
+            1.0, 1.0,
+            0.0, 1.0,
+        ];
         
         this.colors = [
 
@@ -645,6 +684,10 @@ class MapPiece{
 
     getNormals(){
         return this.normals;
+    }
+
+    getTexture(){
+        return this.textureCoords;
     }
 
     setHasBeenTouched(){

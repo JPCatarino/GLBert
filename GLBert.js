@@ -23,6 +23,7 @@ var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
 var mapVertexColorBuffer = [];
 var mapVertexNormalBuffer = [];
+var mapVertexTextureBuffer = [];
 
 var qbertVertexPositionBuffer = null;
 var qbertVertexColorBuffer = null;
@@ -35,6 +36,11 @@ var enemiesVertexNormalBuffer = [];
 var disksVertexPositionBuffer = [];
 var disksVertexNormalBuffer = [];
 var disksVertexColorBuffer = [];
+
+// Textures
+var whiteColor = new Float32Array([1, 1, 1, 1]);
+var whitePixel = new Uint8Array([255, 255, 255, 255]);
+var whiteTexture = null;
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
@@ -55,15 +61,13 @@ function initBuffers(){
 	initQbertBuffers();
 	initEnemyBuffers();
 	initDiskBuffers()
-	console.log(qbert.getVertices());
-	console.log(qbertVertexPositionBuffer.numItems);
-	console.log(qbertVertexColorBuffer.numItems);
 }
 
 function drawModel( model,
 					modelVertexPositionBuffer,
 					modelVertexNormalBuffer,
 					modelVertexColorBuffer,
+					modelVertexTextureCoordBuffer,
 					mvMatrix,
 					primitiveType ) {
 	
@@ -83,6 +87,8 @@ function drawModel( model,
 	
 	var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 	gl.uniformMatrix4fv(mvUniform, false, new Float32Array(flatten(mvMatrix)));
+
+	gl.bindTexture(gl.TEXTURE_2D, whiteTexture);
     
 	// Associating the data to the vertex shader
 	// Vertex Coordinates and Vertex Normal Vectors
@@ -91,6 +97,9 @@ function drawModel( model,
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, modelVertexPositionBuffer.itemSize, gl.FLOAT, false, 0 , 0);
 
 	// TODO add light, color stuff 
+
+	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, modelVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	
 	gl.bindBuffer(gl.ARRAY_BUFFER, modelVertexNormalBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, modelVertexNormalBuffer.itemSize, gl.FLOAT, false, 0 , 0);
@@ -207,21 +216,21 @@ function drawScene(){
 	// Models 
 	
 	//Qbert
-	drawModel(qbert, qbertVertexPositionBuffer, qbertVertexNormalBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
+	//drawModel(qbert, qbertVertexPositionBuffer, qbertVertexNormalBuffer, qbertVertexColorBuffer, mvMatrix, primitiveType);
 
 	//Enemies
-	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
-		drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexNormalBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
-	}
+	//for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
+	//	drawModel(enemies[enemyIndex], enemiesVertexPositionBuffer[enemyIndex], enemiesVertexNormalBuffer[enemyIndex], enemiesVertexColorBuffer[enemyIndex], mvMatrix, primitiveType);
+	//}
 
 	//Disks
-	for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
-		drawModel(disks[diskIndex], disksVertexPositionBuffer[diskIndex], disksVertexNormalBuffer[diskIndex], disksVertexColorBuffer[diskIndex], mvMatrix, primitiveType);
-	}
+	//for(var diskIndex = 0; diskIndex < disks.length; diskIndex++){
+	//	drawModel(disks[diskIndex], disksVertexPositionBuffer[diskIndex], disksVertexNormalBuffer[diskIndex], disksVertexColorBuffer[diskIndex], mvMatrix, primitiveType);
+	//}
 
 	// Map
 	for(var i = 0; i < 28 ; i++){
-		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexNormalBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
+		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexNormalBuffer[i], mapVertexColorBuffer[i], mapVertexTextureBuffer[i], mvMatrix, primitiveType);
 	}
 	
 	gameInfoText(qbert.points, qbert.lives);
@@ -261,6 +270,12 @@ function initWebGL( canvas ) {
 		primitiveType = gl.TRIANGLES;
 		
 		// Enable DEPTH-TEST
+
+		// textures
+		whiteTexture = gl.createTexture();
+		gl.bindTexture(gl.TEXTURE_2D, whiteTexture);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, 
+					 gl.RGBA, gl.UNSIGNED_BYTE, whitePixel);
 		
 		gl.enable( gl.DEPTH_TEST );
 

@@ -37,6 +37,8 @@ Passing the Model-View Matrix and the Projection Matrix.
 	attribute vec3 aVertexColor;
 	
 	attribute vec3 aVertexNormal;
+
+	attribute vec2 aTextureCoord;
     
 	uniform mat4 uMVMatrix;
 	
@@ -47,6 +49,8 @@ Passing the Model-View Matrix and the Projection Matrix.
 	varying vec4 vertexColor;
 	
 	varying vec3 vertexNormal;
+
+	varying vec2 vTextureCoord;
     
     void main(void) {
 		
@@ -65,6 +69,8 @@ Passing the Model-View Matrix and the Projection Matrix.
 		vertexColor = vec4(aVertexColor, 1.0);
 		
 		vertexNormal = mat3(uMVMatrix) * aVertexNormal;
+
+		vTextureCoord = aTextureCoord;
     }
 </script>
 
@@ -79,7 +85,11 @@ Passing the Model-View Matrix and the Projection Matrix.
 
 	varying vec3 vertexNormal;
 
+	varying vec2 vTextureCoord;
+
 	uniform vec3 u_reverseLightDirection;
+
+	uniform sampler2D uSampler;
 	
 	void main(void) {
 		
@@ -89,7 +99,7 @@ Passing the Model-View Matrix and the Projection Matrix.
 
 		float light = dot(normal, u_reverseLightDirection);
 		
-		gl_FragColor = vertexColor;
+		gl_FragColor = texture2D(uSampler, vTextureCoord) * vertexColor;
 
 		gl_FragColor.rgb*=light;
 

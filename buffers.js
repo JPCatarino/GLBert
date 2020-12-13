@@ -9,6 +9,7 @@ function initMapBuffers(){
         var vertices = current_cube.getVertices();
         var indices = current_cube.getIndices();
         var normals = current_cube.getNormals();
+        var textures = current_cube.getTexture();
         var colors = current_cube.getColors();
         
 
@@ -36,10 +37,17 @@ function initMapBuffers(){
         mapPieceIndexBuffer.itemSize = 1;
         mapPieceIndexBuffer.numItems = indices.length;
 
+        mapPieceVertexTextureBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, mapPieceVertexTextureBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textures), gl.STATIC_DRAW);
+        mapPieceVertexTextureBuffer.itemSize = 2;
+        mapPieceVertexTextureBuffer.numItems = 24;	
+
         mapVertexPositionBuffer.push(mapPieceVertexPositionBuffer);
         mapVertexIndexBuffer.push(mapPieceIndexBuffer);
         mapVertexNormalBuffer.push(mapPieceVertexNormalBuffer);
         mapVertexColorBuffer.push(mapPieceVertexColorBuffer);
+        mapVertexTextureBuffer.push(mapPieceVertexTextureBuffer);
     }
 }
 
