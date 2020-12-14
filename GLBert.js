@@ -18,6 +18,7 @@ var spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
 var qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
 var enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
 var disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
+var startGame = false;
 // Buffers
 var mapVertexPositionBuffer = [];
 var mapVertexIndexBuffer = [];
@@ -101,6 +102,51 @@ function drawModel( model,
 	
 	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems);
 	
+}
+
+function menu(){
+	var textCanvas = document.querySelector("#text");
+	var ctx = textCanvas.getContext("2d");
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.font = "40px arcade";
+    ctx.fillStyle = '#FFFFFF';
+	ctx.fillText("PRESS ENTER TO START", 12, 450);
+    ctx.drawImage(document.getElementById("glbertlogo"), 115 , 200);
+}
+
+function reset_game(){
+	map = new Map();
+	rootPiece = map.getMapPieces()[27];
+	spawnPiece1 = map.getMapPieces()[25];
+	spawnPiece2 = map.getMapPieces()[24];
+	spawnPiece3 = map.getMapPieces()[26];
+	spawnPiece4 = map.getMapPieces()[22];
+	diskPiece1 = map.getMapPieces()[13]; 
+	diskPiece2 = map.getMapPieces()[17];
+	spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
+	qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
+	enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
+	disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
+
+	// Buffers
+	mapVertexPositionBuffer = [];
+	mapVertexIndexBuffer = [];
+	mapVertexColorBuffer = [];
+	mapVertexNormalBuffer = [];
+
+	qbertVertexPositionBuffer = null;
+	qbertVertexColorBuffer = null;
+	qbertVertexNormalBuffer = null;
+
+	enemiesVertexPositionBuffer = [];
+	enemiesVertexColorBuffer = [];
+	enemiesVertexNormalBuffer = [];
+
+	disksVertexPositionBuffer = [];
+	disksVertexNormalBuffer = [];
+	disksVertexColorBuffer = [];
+
+	initBuffers();
 }
 
 function gameInfoText(points, lives){
@@ -218,7 +264,9 @@ function drawScene(){
 		drawModel(map.getMapPieces()[i], mapVertexPositionBuffer[i], mapVertexNormalBuffer[i], mapVertexColorBuffer[i], mvMatrix, primitiveType);
 	}
 	
-	gameInfoText(qbert.points, qbert.lives);
+	if(startGame){
+		gameInfoText(qbert.points, qbert.lives);
+	}
 }
 
 function tick() {
@@ -229,13 +277,14 @@ function tick() {
 	
     drawScene();
     
-    //countFrames();
+	//countFrames();
 	
-	animate();
-	for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
-		qbert.hasCollidedWithEnemy(enemies[enemyIndex]);
-	}
-        
+	if(startGame){
+		animate();
+		for(var enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++){
+			qbert.hasCollidedWithEnemy(enemies[enemyIndex]);
+		}
+	}    
 }
 
 function outputInfos(){
@@ -280,7 +329,9 @@ function runWebGL() {
 	
     setEventListeners(canvas);
     
-    initBuffers();
+	initBuffers();
+	
+	menu();	
 	
 	tick();		// A timer controls the rendering / animation    
 

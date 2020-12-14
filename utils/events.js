@@ -43,7 +43,7 @@ function setEventListeners( canvas ){
 		
     };
     
-    document.getElementById("reset").onclick = function(){		
+    document.getElementById("default").onclick = function(){		
 		globalAngleXX = -21;
         globalAngleYY = 0;
         globalAngleZZ = 0;
@@ -72,6 +72,10 @@ function setEventListeners( canvas ){
         globalTz = -2.0;	
 		
     };
+
+    document.getElementById("reset").onclick = function(){
+        reset_game();
+    }
     
 
 }
@@ -124,6 +128,12 @@ function handleKeys() {
                 qbert.moveLeftDown();
                 
             }    
+        }
+    }
+
+    if (currentlyPressedKeys[13]) {
+        if(!blockedKeys[13]) {
+            startGame = true; 
         }
     }
 }
