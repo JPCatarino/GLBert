@@ -76,8 +76,6 @@ function setEventListeners( canvas ){
     document.getElementById("reset").onclick = function(){
         reset_game();
     }
-    
-
 }
 
 function block(kCode) {

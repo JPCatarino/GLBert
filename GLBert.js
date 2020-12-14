@@ -242,7 +242,14 @@ function drawScene(){
 
 
 	// set the light direction.
-	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([0.7, 1.0, 1.5]));
+	var slider = document.getElementById("myRange");
+    var output = document.getElementById("val");
+	output.innerHTML = slider.value;
+		
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([this.value*0.7, this.value/4*1.0, this.value*1.5]));
+    }
 
 	// Models 
 	
