@@ -81,10 +81,14 @@ function animateEnemy(elapsed, enemy, enemyIndex){
 			dir = Math.round(Math.random());
 			
 			if(dir == 0){
+				enemy.setRy(5);
+				enemy.setRz(5);
 				enemy.moveLeftDown();	
 				enemyJumpSound.play();			
 			} 
 			else{
+				enemy.setRy(-5);
+				enemy.setRz(-5);
 				enemy.moveRightDown();
 				enemyJumpSound.play();				
 			}

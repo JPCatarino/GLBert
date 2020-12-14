@@ -944,6 +944,14 @@ class Enemy{
         this.tz = tz;
     }
 
+    setRy(ry){
+        this.ry = ry;
+    }
+
+    setRz(rz){
+        this.rz = rz;
+    }
+
     moveLeftDown(){
         var rowTemp = this.row + 1;
         var collumnTemp = this.collumn;
