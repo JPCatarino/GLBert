@@ -122,6 +122,9 @@ class Qbert{
         this.sy = 0.07;
         this.sz = 0.07;
 
+        this.speedx = 0.006;
+        this.speedy = 0.006;
+
         this.finalPosx = this.tx;
         this.finalPosy = this.ty;
         this.finalPosz = this.tz;
@@ -300,6 +303,14 @@ class Qbert{
         return this.collumn;
     }
 
+    getSpeedx(){
+        return this.speedx;
+    }
+
+    getSpeedy(){
+        return this.speedy;
+    }
+
     setMoving(movement){
         this.isMoving = movement; 
     }
@@ -314,6 +325,11 @@ class Qbert{
 
     setTz(tz){
         this.tz = tz;
+    }
+
+    setSpeed(speedx, speedy){
+        this.speedx = speedx;
+        this.speedy = speedy;
     }
 
     setFinalPos(posx, posy){

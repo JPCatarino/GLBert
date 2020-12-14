@@ -12,8 +12,8 @@ function animateQBert(elapsed){
 	var finalQBertZ = qbert.getfinalPosZ();
 	var direction = qbert.getDirection();	
 
-	var qbertSpeedx = 0.006;
-	var qbertSpeedy = 0.006;
+	var qbertSpeedx = qbert.getSpeedx();
+	var qbertSpeedy = qbert.getSpeedy();
 
     if(qbert.getMoving()){
         if((currentQBertX.toFixed(2) == finalQBertX.toFixed(2)) && (currentQBertY.toFixed(2) == finalQBertY.toFixed(2))){
@@ -37,7 +37,8 @@ function animateQBert(elapsed){
 				disks[diskIndex].setDiskDirection(rootPiece.tx+0.003, rootPiece.ty+0.1);	
 				disks[diskIndex].setFinalPos(rootPiece.tx+0.003, rootPiece.ty+0.1);			
 				qbert.setQbertDirection(rootPiece.tx+0.003, rootPiece.ty+0.2);	 
-				qbert.setFinalPos(rootPiece.tx+0.003, rootPiece.ty+0.2);												
+				qbert.setFinalPos(rootPiece.tx+0.003, rootPiece.ty+0.2);	
+				qbert.setSpeed(0.013, 0.013);											
 				qbert.setMoving(true);
 			}
 		} 
@@ -102,12 +103,13 @@ function animateDisk(elapsed, disk){
 	var finalPosX = disk.getfinalPosX();
 	var finalPosY = disk.getfinalPosY();
 	var direction = disk.getDirection();
-	var SpeedX = 0.006;
-	var SpeedY = 0.006;
+	var SpeedX = 0.013;
+	var SpeedY = 0.013;
 	
 	if(disk.getMoving()){
 		if((currentDiskX.toFixed(2) == finalPosX.toFixed(2)) && (currentDiskY.toFixed(2) == finalPosY.toFixed(2))){
-			disk.setMoving(false); 			
+			disk.setMoving(false);
+			qbert.setSpeed(0.006, 0.006);											 			
 			qbert.goToStartingPos();   
 			disk.setActive(false);  
 			disk.setTz(1000000);      			
