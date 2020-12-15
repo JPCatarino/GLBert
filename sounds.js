@@ -4,6 +4,7 @@ winSound = new sound("sounds/tune-2.mp3");
 collideSound = new sound("sounds/swear.mp3");
 fallSound = new sound("sounds/fall.mp3");
 liftSound = new sound("sounds/lift.mp3");
+menuSound = new sound("sounds/tune.mp3");
 
 function sound(src) {
     this.sound = document.createElement("audio");

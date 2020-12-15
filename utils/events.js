@@ -173,6 +173,7 @@ function handleKeys() {
 
     if (currentlyPressedKeys[13]) {
         if(!blockedKeys[13] && !qbert.dead && !map.levelComplete) {
+            menuSound.play();         
             startGame = true; 
         }
     }

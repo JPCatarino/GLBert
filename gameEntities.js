@@ -713,9 +713,9 @@ class MapPiece{
         if(!this.hasBeenTouched){
             this.hasBeenTouched = true;
             this.colors = this.colorsTouched;
-            map.incrementStompPieceCounter();
-            map.checkIfLevelComplete();
             qbert.points+=25;
+            map.incrementStompPieceCounter();
+            map.checkIfLevelComplete();            
         }
     }
 }
