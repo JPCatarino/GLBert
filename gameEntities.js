@@ -805,7 +805,8 @@ class Map{
         if(this.stompedPieceCounter == this.mapPieces.length){
             this.levelComplete = true;
             winSound.play();
-            console.log("YAY!");
+            win();
+            startGame = false;
         }
     }
 

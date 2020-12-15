@@ -131,6 +131,19 @@ function dead(){
 	ctx.fillText("PRESS RESET TO RESTART", 80, 350);
 }
 
+function win(){
+	var textCanvas = document.querySelector("#text");
+	var ctx = textCanvas.getContext("2d");
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.font = "50px arcade";
+	ctx.fillStyle = '#FFFFFF';
+	ctx.fillText("LEVEL COMPLETED!", 20, 300);
+	ctx.font = "25px arcade";
+	ctx.fillText("POINTS: " + qbert.points, 280, 350);
+	ctx.font = "30px arcade";
+	ctx.fillText("PRESS RESET TO RESTART", 80, 400);
+}
+
 function reset_game(){
 	map = new Map();
 	rootPiece = map.getMapPieces()[27];
