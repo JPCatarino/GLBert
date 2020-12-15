@@ -39,6 +39,10 @@ var disksVertexColorBuffer = [];
 
 // Global Variables 
 var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
+var o_lightArray = [0.7, 1.0, 1.5];
+var lightArray = [0.7, 1.0, 1.5];
+var lastValueX = 0;
+var lastValueY = 0;
 
 // Global Transformation Variables 
 globalAngleXX = -21;
@@ -241,15 +245,8 @@ function drawScene(){
 		mvMatrixInvTrans);
 
 
-	// set the light direction.
-	var slider = document.getElementById("myRange");
-    var output = document.getElementById("val");
-	output.innerHTML = slider.value;
-		
-    slider.oninput = function() {
-    output.innerHTML = this.value;
-    gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array([this.value*0.7, this.value/4*1.0, this.value*1.5]));
-    }
+	// set the light direction.	
+	gl.uniform3fv(gl.getUniformLocation(shaderProgram, "u_reverseLightDirection"), new Float32Array(lightArray));
 
 	// Models 
 	

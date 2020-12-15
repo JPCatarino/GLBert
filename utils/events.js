@@ -76,6 +76,26 @@ function setEventListeners( canvas ){
     document.getElementById("reset").onclick = function(){
         reset_game();
     }
+
+    var sliderX = document.getElementById("rotateXLight");
+    var outputX = document.getElementById("valX");
+    outputX.innerHTML = sliderX.value;
+    
+    sliderX.oninput = function(){
+        outputX.innerHTML = this.value;
+        to_radians = this.value * (Math.PI/180);
+		lightArray[0] = o_lightArray[0] * Math.cos(to_radians) + o_lightArray[1] * (-Math.sin(to_radians));
+    }
+
+	var sliderY = document.getElementById("rotateYLight");
+    var outputY = document.getElementById("valY");
+    outputY.innerHTML = sliderY.value;
+    
+    sliderY.oninput = function(){
+        outputY.innerHTML = this.value;
+        to_radians = this.value * (Math.PI/180);
+		lightArray[1] = o_lightArray[0] * Math.sin(to_radians) + o_lightArray[1] * Math.cos(to_radians)
+    }
 }
 
 function block(kCode) {
