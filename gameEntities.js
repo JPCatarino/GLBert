@@ -726,7 +726,7 @@ class Map{
         this.mapPieces = [];
         this.rowCol = [[],[],[],[],[],[],[]];
         this.stompedPieceCounter = 0;
-        this.levelComplete = 0;
+        this.levelComplete = false;
         var coordx = -0.75;
         var coordy = -0.75;
         var magicNumber = 0.205;
