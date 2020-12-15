@@ -75,6 +75,12 @@ function setEventListeners( canvas ){
 
     document.getElementById("reset").onclick = function(){
         reset_game();
+        globalAngleXX = -21;
+        globalAngleYY = 0;
+        globalAngleZZ = 0;
+        globalTx = 0;
+        globalTy = 0.5;
+        globalTz = -2.0;	
     }
 
     var sliderX = document.getElementById("rotateXLight");
