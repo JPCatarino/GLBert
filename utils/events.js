@@ -172,7 +172,8 @@ function handleKeys() {
     }
 
     if (currentlyPressedKeys[13]) {
-        if(!blockedKeys[13] && !qbert.dead) {
+        if(!blockedKeys[13] && !qbert.dead) {   
+            menuSound.play();         
             startGame = true; 
         }
     }

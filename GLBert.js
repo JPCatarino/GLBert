@@ -146,6 +146,7 @@ function win(){
 
 function reset_game(){
 	map = new Map();
+	menuSound.play();  
 	rootPiece = map.getMapPieces()[27];
 	spawnPiece1 = map.getMapPieces()[25];
 	spawnPiece2 = map.getMapPieces()[24];
