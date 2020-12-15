@@ -104,6 +104,8 @@ function drawModel( model,
 	
 }
 
+// Game Status
+
 function menu(){
 	var textCanvas = document.querySelector("#text");
 	var ctx = textCanvas.getContext("2d");
@@ -112,6 +114,17 @@ function menu(){
     ctx.fillStyle = '#FFFFFF';
 	ctx.fillText("PRESS ENTER TO START", 12, 450);
     ctx.drawImage(document.getElementById("glbertlogo"), 115 , 200);
+}
+
+function dead(){
+	var textCanvas = document.querySelector("#text");
+	var ctx = textCanvas.getContext("2d");
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.font = "60px arcade";
+	ctx.fillStyle = '#FFFFFF';
+	ctx.fillText("GAME OVER", 140, 300);
+	ctx.font = "30px arcade";
+	ctx.fillText("PRESS RESET TO RESTART", 80, 350);
 }
 
 function reset_game(){
@@ -128,6 +141,7 @@ function reset_game(){
 	enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
 	disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
 
+	startGame = true;
 	// Buffers
 	mapVertexPositionBuffer = [];
 	mapVertexIndexBuffer = [];

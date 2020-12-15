@@ -353,7 +353,9 @@ class Qbert{
         qbert.lives -= 1;
         this.goToStartingPos();
         if(qbert.lives == -1){
-            this.dead = true;            
+            this.dead = true;
+            startGame = false;
+            dead();            
         }
         console.log(this.dead);
     }
