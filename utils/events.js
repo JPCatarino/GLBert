@@ -90,7 +90,9 @@ function setEventListeners( canvas ){
     sliderX.oninput = function(){
         outputX.innerHTML = this.value;
         to_radians = this.value * (Math.PI/180);
-		lightArray[0] = o_lightArray[0] * Math.cos(to_radians) + o_lightArray[1] * (-Math.sin(to_radians));
+        lightArray[0] = o_lightArray[0];
+        lightArray[1] = o_lightArray[1] * Math.cos(to_radians) + o_lightArray[2] * (-Math.sin(to_radians));
+        lightArray[2] = o_lightArray[1] * Math.sin(to_radians) + o_lightArray[2] * Math.cos(to_radians);
     }
 
 	var sliderY = document.getElementById("rotateYLight");
@@ -100,7 +102,9 @@ function setEventListeners( canvas ){
     sliderY.oninput = function(){
         outputY.innerHTML = this.value;
         to_radians = this.value * (Math.PI/180);
-		lightArray[1] = o_lightArray[0] * Math.sin(to_radians) + o_lightArray[1] * Math.cos(to_radians)
+        lightArray[0] = o_lightArray[0] * Math.cos(to_radians) + o_lightArray[2] * Math.sin(to_radians);
+        lightArray[1] = o_lightArray[1];
+        lightArray[2] =  o_lightArray[2] * Math.cos(to_radians) + o_lightArray[0] * (-Math.sin(to_radians));;
     }
 }
 
