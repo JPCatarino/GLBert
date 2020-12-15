@@ -104,7 +104,19 @@ function setEventListeners( canvas ){
         to_radians = this.value * (Math.PI/180);
         lightArray[0] = o_lightArray[0] * Math.cos(to_radians) + o_lightArray[2] * Math.sin(to_radians);
         lightArray[1] = o_lightArray[1];
-        lightArray[2] =  o_lightArray[2] * Math.cos(to_radians) + o_lightArray[0] * (-Math.sin(to_radians));;
+        lightArray[2] = o_lightArray[2] * Math.cos(to_radians) + o_lightArray[0] * (-Math.sin(to_radians));
+    }
+
+    var sliderZ = document.getElementById("rotateZLight");
+    var outputZ = document.getElementById("valZ");
+    outputZ.innerHTML = sliderZ.value;
+    
+    sliderZ.oninput = function(){
+        outputZ.innerHTML = this.value;
+        to_radians = this.value * (Math.PI/180);
+        lightArray[0] = o_lightArray[0] * Math.cos(to_radians) + o_lightArray[1] * (-Math.sin(to_radians));
+        lightArray[1] = o_lightArray[1] * Math.cos(to_radians) + o_lightArray[0] * Math.sin(to_radians);
+        lightArray[2] = o_lightArray[2];
     }
 }
 
