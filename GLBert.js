@@ -55,6 +55,44 @@ globalTz = -2.0;
 var primitiveType = null;
 var projectionType = 1;
 
+// Resets game global variables
+function reset_game(){
+	map = new Map();
+	menuSound.play();  
+	rootPiece = map.getMapPieces()[27];
+	spawnPiece1 = map.getMapPieces()[25];
+	spawnPiece2 = map.getMapPieces()[24];
+	spawnPiece3 = map.getMapPieces()[26];
+	spawnPiece4 = map.getMapPieces()[22];
+	diskPiece1 = map.getMapPieces()[13]; 
+	diskPiece2 = map.getMapPieces()[17];
+	spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
+	qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
+	enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
+	disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
+
+	startGame = true;
+	// Buffers
+	mapVertexPositionBuffer = [];
+	mapVertexIndexBuffer = [];
+	mapVertexColorBuffer = [];
+	mapVertexNormalBuffer = [];
+
+	qbertVertexPositionBuffer = null;
+	qbertVertexColorBuffer = null;
+	qbertVertexNormalBuffer = null;
+
+	enemiesVertexPositionBuffer = [];
+	enemiesVertexColorBuffer = [];
+	enemiesVertexNormalBuffer = [];
+
+	disksVertexPositionBuffer = [];
+	disksVertexNormalBuffer = [];
+	disksVertexColorBuffer = [];
+
+	initBuffers();
+}
+
 function initBuffers(){
 	initMapBuffers();
 	initQbertBuffers();
@@ -103,93 +141,6 @@ function drawModel( model,
 	
 	gl.drawArrays(primitiveType, 0, modelVertexPositionBuffer.numItems);
 	
-}
-
-// Game Status
-
-function menu(){
-	var textCanvas = document.querySelector("#text");
-	var ctx = textCanvas.getContext("2d");
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.font = "40px arcade";
-    ctx.fillStyle = '#FFFFFF';
-	ctx.fillText("PRESS ENTER TO START", 12, 450);
-    ctx.drawImage(document.getElementById("glbertlogo"), 115 , 200);
-}
-
-function dead(){
-	var textCanvas = document.querySelector("#text");
-	var ctx = textCanvas.getContext("2d");
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.font = "60px arcade";
-	ctx.fillStyle = '#FFFFFF';
-	ctx.fillText("GAME OVER", 140, 300);
-	ctx.font = "30px arcade";
-	ctx.fillText("PRESS RESET TO RESTART", 80, 350);
-}
-
-function win(){
-	var textCanvas = document.querySelector("#text");
-	var ctx = textCanvas.getContext("2d");
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.font = "50px arcade";
-	ctx.fillStyle = '#FFFFFF';
-	ctx.fillText("LEVEL COMPLETED!", 20, 300);
-	ctx.font = "25px arcade";
-	ctx.fillText("POINTS: " + qbert.points, 280, 350);
-	ctx.font = "30px arcade";
-	ctx.fillText("PRESS RESET TO RESTART", 80, 400);
-}
-
-function reset_game(){
-	map = new Map();
-	menuSound.play();  
-	rootPiece = map.getMapPieces()[27];
-	spawnPiece1 = map.getMapPieces()[25];
-	spawnPiece2 = map.getMapPieces()[24];
-	spawnPiece3 = map.getMapPieces()[26];
-	spawnPiece4 = map.getMapPieces()[22];
-	diskPiece1 = map.getMapPieces()[13]; 
-	diskPiece2 = map.getMapPieces()[17];
-	spawnPieces = [spawnPiece1, spawnPiece2, spawnPiece3, spawnPiece4];
-	qbert = new Qbert(rootPiece.tx+0.003, 0.4255, -0.65);
-	enemies = [new Enemy(spawnPiece1.tx+0.003, spawnPiece1.ty+0.05, -0.65, 2, 1), new Enemy(spawnPiece2.tx+0.003, spawnPiece2.ty+0.05, -0.65, 3,3)];
-	disks = [new Disk(diskPiece1.tx -0.12 ,diskPiece1.ty+0.1, -0.65, 5,0), new Disk(diskPiece2.tx +0.12 ,diskPiece2.ty+0.1, -0.65, 5,6)] //to continue
-
-	startGame = true;
-	// Buffers
-	mapVertexPositionBuffer = [];
-	mapVertexIndexBuffer = [];
-	mapVertexColorBuffer = [];
-	mapVertexNormalBuffer = [];
-
-	qbertVertexPositionBuffer = null;
-	qbertVertexColorBuffer = null;
-	qbertVertexNormalBuffer = null;
-
-	enemiesVertexPositionBuffer = [];
-	enemiesVertexColorBuffer = [];
-	enemiesVertexNormalBuffer = [];
-
-	disksVertexPositionBuffer = [];
-	disksVertexNormalBuffer = [];
-	disksVertexColorBuffer = [];
-
-	initBuffers();
-}
-
-function gameInfoText(points, lives){
-	var textCanvas = document.querySelector("#text");
-	var ctx = textCanvas.getContext("2d");
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.font = "15px arcade";
-    ctx.fillStyle = '#FFFFFF';
-	ctx.fillText("Player 1", 600, 90);
-	ctx.fillText("Points:" + points, 600, 120);
-	ctx.fillText("Lives:" + lives, 600, 150);
-	ctx.fillText("Change To:", 600, 180);
-    ctx.drawImage(document.getElementById("blockLevel1"),630, 180, 100, 100);
-
 }
 
 function drawScene(){
