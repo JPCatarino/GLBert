@@ -140,8 +140,5 @@ function initDiskBuffers(){
         disksVertexPositionBuffer.push(diskVertexPositionBuffer);
         disksVertexNormalBuffer.push(diskVertexNormalBuffer);
         disksVertexColorBuffer.push(diskVertexColorBuffer);
-
-        console.log(disks[diskIndex]);
-
     }
 }

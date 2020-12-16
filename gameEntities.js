@@ -165,12 +165,9 @@ class Qbert{
                 this.isMoving = false;
                 qbert.isDead();
                 fallSound.play(); 
-                console.log("FODA-se")  
             }
                       
-        }
-        console.log("tx: " + this.tx + " ty: " + this.ty);
-        
+        }        
     }
 
     moveRightUp(){
@@ -203,9 +200,7 @@ class Qbert{
             qbert.isDead();  
             fallSound.play(); 
             }  
-        }
-        
-        console.log("tx: " + this.tx + " ty: " + this.ty);
+        }        
     }
 
     moveLeftDown(){
@@ -226,9 +221,6 @@ class Qbert{
             qbert.isDead();   
             fallSound.play();  
         }
-        
-
-        console.log("tx: " + this.tx + "ty: " + this.ty)
     }
 
     moveRightDown(){
@@ -237,7 +229,6 @@ class Qbert{
         if (rowTemp <= 7){
             this.finalPosx += (this.magicNumber/2);
             this.finalPosy -= (2.39*0.075);
-            console.log("tx: " + this.tx + "ty: " + this.ty)
             this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
             normalize(this.direction);
             this.row = rowTemp;
@@ -357,7 +348,6 @@ class Qbert{
             startGame = false;
             dead();            
         }
-        console.log(this.dead);
     }
 
     hasCollidedWithEnemy(enemy){
@@ -988,9 +978,6 @@ class Enemy{
             this.isMoving = false;
             this.goToStartingPos();
         }
-        
-
-        console.log("tx: " + this.tx + "ty: " + this.ty)
     }
 
     moveRightDown(){
@@ -999,7 +986,6 @@ class Enemy{
         if (rowTemp <= 7){
             this.finalPosx += (this.magicNumber/2);
             this.finalPosy -= (2.39*0.075);
-            console.log("tx: " + this.tx + "ty: " + this.ty)
             this.direction = vec3(this.finalPosx-this.tx, this.finalPosy-this.ty, 0);
             normalize(this.direction);
             this.row = rowTemp;
@@ -1018,7 +1004,6 @@ class Enemy{
 
     goToStartingPos(){
         var randomSpawnPieceIndex = Math.round(Math.random());
-        console.log(randomSpawnPieceIndex);
         var randomSpawnPiece = spawnPieces[randomSpawnPieceIndex];
         this.row = randomSpawnPiece.row;
         this.collumn = randomSpawnPiece.collumn;

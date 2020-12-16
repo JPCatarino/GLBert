@@ -60,9 +60,6 @@ function initBuffers(){
 	initQbertBuffers();
 	initEnemyBuffers();
 	initDiskBuffers()
-	console.log(qbert.getVertices());
-	console.log(qbertVertexPositionBuffer.numItems);
-	console.log(qbertVertexColorBuffer.numItems);
 }
 
 function drawModel( model,
